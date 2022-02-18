@@ -1,22 +1,20 @@
 package Model;
 
-import Model.Model;
-
 import java.util.Objects;
 
 /**
  * Event object that corresponds with the sql table of the same name
  */
 public class Event extends Model {
-    private String eventID;
-    private String associatedUsername;
+    private final String eventID;
+    private final String associatedUsername;
     private String personID;
-    private double latitude;
-    private double longitude;
-    private String country;
-    private String city;
-    private String eventType;
-    private int year;
+    private final double latitude;
+    private final double longitude;
+    private final String country;
+    private final String city;
+    private final String eventType;
+    private final int year;
 
     /**
      *
@@ -46,16 +44,8 @@ public class Event extends Model {
         return eventID;
     }
 
-    public void setEventID(String eventID) {
-        this.eventID = eventID;
-    }
-
     public String getAssociatedUsername() {
         return associatedUsername;
-    }
-
-    public void setAssociatedUsername(String associatedUsername) {
-        this.associatedUsername = associatedUsername;
     }
 
     public String getPersonID() {
@@ -70,48 +60,24 @@ public class Event extends Model {
         return latitude;
     }
 
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
-
     public double getLongitude() {
         return longitude;
-    }
-
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
     }
 
     public String getCountry() {
         return country;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
     public String getCity() {
         return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
     }
 
     public String getEventType() {
         return eventType;
     }
 
-    public void setEventType(String eventType) {
-        this.eventType = eventType;
-    }
-
     public int getYear() {
         return year;
-    }
-
-    public void setYear(int year) {
-        this.year = year;
     }
 
     @Override

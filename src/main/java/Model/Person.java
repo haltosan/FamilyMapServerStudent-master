@@ -1,7 +1,5 @@
 package Model;
 
-import Model.Model;
-
 import java.util.Objects;
 
 /**
@@ -9,13 +7,13 @@ import java.util.Objects;
  */
 public class Person extends Model {
     private String personID;
-    private String associatedUsername; //2
-    private String firstName;
-    private String lastName; //4
-    private String gender;
-    private String fatherID; //6
-    private String motherID;
-    private String spouseID; //8
+    private final String associatedUsername; //2
+    private final String firstName;
+    private final String lastName; //4
+    private final String gender;
+    private final String fatherID; //6
+    private final String motherID;
+    private final String spouseID; //8
 
     /**
      *
@@ -50,24 +48,12 @@ public class Person extends Model {
         return associatedUsername;
     }
 
-    public void setAssociatedUsername(String associatedUsername) {
-        this.associatedUsername = associatedUsername;
-    }
-
     public String getFirstName() {
         return firstName;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
-
     public String getLastName() {
         return lastName;
-    }
-
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
     }
 
     public String getGender(){
@@ -78,24 +64,12 @@ public class Person extends Model {
         return fatherID;
     }
 
-    public void setFatherID(String fatherID) {
-        this.fatherID = fatherID;
-    }
-
     public String getMotherID() {
         return motherID;
     }
 
-    public void setMotherID(String motherID) {
-        this.motherID = motherID;
-    }
-
     public String getSpouseID() {
         return spouseID;
-    }
-
-    public void setSpouseID(String spouseID) {
-        this.spouseID = spouseID;
     }
 
     @Override
