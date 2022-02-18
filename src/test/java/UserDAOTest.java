@@ -76,6 +76,7 @@ public class UserDAOTest {
     @Test
     public void clearPositive(){
         try {
+            testDAO.insert(testUser);
             testDAO.clear();
             assertNull(testDAO.find("p1"));
         }

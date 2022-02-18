@@ -31,7 +31,7 @@ public class PersonDAOTest {
     @Test
     public void insertPositive(){
         Person testPerson2 = new Person("p2", "p2", "Person", "two", "f", "f2", "m2", "p1");
-        Person testPerson3 = new Person("p3", "p3", "Person", "three", "m", "f2", "m2", "");
+        Person testPerson3 = new Person("p3", "p3", "Person", "three", "m", "f2", "m2", null);
         try{
             testDAO.insert(testPerson);
             testDAO.insert(testPerson2);
@@ -80,6 +80,7 @@ public class PersonDAOTest {
 
     @Test
     public void clearPositive() throws DataAccessException {
+        assertDoesNotThrow(() -> testDAO.insert(testPerson));
         assertDoesNotThrow(() -> testDAO.clear());
         assertNull(testDAO.find(testPerson.getPersonID()));
     }
