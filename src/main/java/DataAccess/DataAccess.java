@@ -15,9 +15,8 @@ public abstract class DataAccess {
     }
 
     public void clear() throws DataAccessException{
-        String sql = "DELETE FROM ?";
+        String sql = "DELETE FROM " + tableName;
         try(PreparedStatement statement = connection.prepareStatement(sql)){
-            statement.setString(1, tableName);
             statement.executeUpdate();
         } catch (SQLException exception){
             exception.printStackTrace();

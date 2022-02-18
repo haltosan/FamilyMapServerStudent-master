@@ -2,6 +2,8 @@ package Model;
 
 import Model.Model;
 
+import java.util.Objects;
+
 /**
  * Person object that corresponds with the sql table of the same name
  */
@@ -10,9 +12,10 @@ public class Person extends Model {
     private String associatedUsername; //2
     private String firstName;
     private String lastName; //4
-    private String fatherID;
-    private String motherID; //6
-    private String spouseID;
+    private String gender;
+    private String fatherID; //6
+    private String motherID;
+    private String spouseID; //8
 
     /**
      *
@@ -24,11 +27,12 @@ public class Person extends Model {
      * @param motherID Model.Person's mother (can be null)
      * @param spouseID Model.Person's spouse (can be null)
      */
-    public Person(String personID, String associatedUsername, String firstName, String lastName, String fatherID, String motherID, String spouseID) {
+    public Person(String personID, String associatedUsername, String firstName, String lastName, String gender, String fatherID, String motherID, String spouseID) {
         this.personID = personID;
         this.associatedUsername = associatedUsername;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.gender = gender;
         this.fatherID = fatherID;
         this.motherID = motherID;
         this.spouseID = spouseID;
@@ -66,6 +70,10 @@ public class Person extends Model {
         this.lastName = lastName;
     }
 
+    public String getGender(){
+        return gender;
+    }
+
     public String getFatherID() {
         return fatherID;
     }
@@ -88,5 +96,13 @@ public class Person extends Model {
 
     public void setSpouseID(String spouseID) {
         this.spouseID = spouseID;
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if(o.getClass() != this.getClass()){
+            return false;
+        }
+        return Objects.equals(((Person) o).getPersonID(), this.getPersonID());
     }
 }

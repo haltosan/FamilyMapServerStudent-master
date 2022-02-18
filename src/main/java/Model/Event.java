@@ -2,6 +2,8 @@ package Model;
 
 import Model.Model;
 
+import java.util.Objects;
+
 /**
  * Event object that corresponds with the sql table of the same name
  */
@@ -110,5 +112,14 @@ public class Event extends Model {
 
     public void setYear(int year) {
         this.year = year;
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if(o.getClass() != this.getClass()){
+            return false;
+        }
+        Event other = (Event)o;
+        return (Objects.equals(other.getEventID(), this.eventID));
     }
 }

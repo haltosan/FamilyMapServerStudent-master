@@ -9,6 +9,17 @@ import java.sql.*;
  */
 public class EventDAO extends DataAccess {
 
+    public static void main(String[] args) throws DataAccessException {
+        Database db = new Database();
+        EventDAO dao = new EventDAO(db.getConnection());
+        Event event1 = new Event("1", "a", "u1", 10, 11, "c1", "ci1", "basic", 1910);
+        Event event2 = new Event("2", "b", "u1", 20, 21, "c2", "ci1", "basic", 1920);
+        Event event3 = new Event("1", "c", "u1", 10, 11, "c1", "ci1", "basic", 1910);
+
+        dao.clear();
+        db.closeConnection(true);
+    }
+
     /**
      *
      * @param connection The database connection
@@ -19,7 +30,7 @@ public class EventDAO extends DataAccess {
     }
 
     public void insert(Event event) throws DataAccessException{
-        String sql = "INSERT INTO Events (EventID, AssociatedUsername, PersonID, Latitude, Longitude, Country, City, EventType, Year) VALUES(?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO " + tableName + " (EventID, AssociatedUsername, PersonID, Latitude, Longitude, Country, City, EventType, Year) VALUES(?,?,?,?,?,?,?,?,?)";
         try(PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setString(1, event.getEventID());
             statement.setString(2, event.getAssociatedUsername());

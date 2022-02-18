@@ -2,33 +2,22 @@ package DataAccess;
 
 import Model.AuthToken;
 
+import java.sql.Connection;
+
 /**
  * The data access object for getting authTokens
  */
 public class AuthTokenDAO extends DataAccess {
 
-    private String username;
-    private AuthToken model;
 
     /**
      *
-     * @param username The username the DAO will fetch from the db
+     * @param connection db connection
      */
-    public AuthTokenDAO(String username) {
-        this.username = username;
-        model = null;
+    public AuthTokenDAO(Connection connection) {
+        super(connection);
+        tableName = "authToken";
     }
 
-    @Override
-    public AuthToken getModel() {
-        return model;
-    }
 
-    /**
-     * Makes a request to the database to get an authtoken object with the same username
-     */
-    @Override
-    public void makeRequest() {
-
-    }
 }

@@ -10,10 +10,7 @@ CREATE TABLE User (
     firstName varchar(255) not null,
     lastName varchar(255) not null,
     gender varchar(255) not null,
-    personID varchar(255) not null,
-    foreign key(username) references Person(associatedUsername),
-    foreign key(username) references Event(associatedUsername),
-    foreign key(username) references Authtoken(username)
+    personID varchar(255) not null primary key,
 );
 
 CREATE TABLE Person (
@@ -28,7 +25,7 @@ CREATE TABLE Person (
 );
 
 CREATE TABLE Event (
-    eventID varchar(255) not null,
+    eventID varchar(255) not null primary key,
     associatedUsername varchar(255) not null,
     personID varchar(255) not null,
     latitude float not null,
