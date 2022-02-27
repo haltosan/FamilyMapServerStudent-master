@@ -12,11 +12,6 @@ import java.sql.SQLException;
  */
 public class PersonDAO extends DataAccess {
 
-    public static void main(String[] args){
-
-    }
-
-
     /**
      *
      * @param connection Database connection

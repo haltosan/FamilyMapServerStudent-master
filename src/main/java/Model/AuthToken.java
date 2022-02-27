@@ -2,6 +2,8 @@ package Model;
 
 import Model.Model;
 
+import java.util.Objects;
+
 /**
  * AuthToken object that corresponds with the sql table of the same name
  */
@@ -29,5 +31,13 @@ public class AuthToken extends Model {
 
     public String getAuthtoken(){
         return authtoken;
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if(o.getClass() != this.getClass()){
+            return false;
+        }
+        return Objects.equals(((AuthToken) o).getUsername(), this.getUsername());
     }
 }
