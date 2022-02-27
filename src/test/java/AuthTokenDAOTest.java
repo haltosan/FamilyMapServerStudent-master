@@ -1,5 +1,3 @@
-package passoff;
-
 import DataAccess.AuthTokenDAO;
 import DataAccess.DataAccessException;
 import DataAccess.Database;
