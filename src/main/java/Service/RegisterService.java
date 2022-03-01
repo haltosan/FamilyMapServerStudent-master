@@ -8,6 +8,8 @@ import Model.User;
 import Request.RegisterRequest;
 import Result.RegisterResult;
 
+import java.sql.Connection;
+
 /**
  * Registers a new user in the db
  */
@@ -19,8 +21,9 @@ public class RegisterService extends Service {
     /**
      * @param request The request that the user sent
      */
-    public RegisterService(RegisterRequest request) {
+    public RegisterService(RegisterRequest request, Connection connection) {
         this.request = request;
+        this.connection = connection;
         result = null;
     }
 
@@ -55,7 +58,7 @@ public class RegisterService extends Service {
             result = new RegisterResult("Error: Issue with adding auth token", false);
             return;
         }
-        result = new RegisterResult(authTokenString, request.username, result.personID, true);
+        result = new RegisterResult(authTokenString, request.username, personID, true);
     }
 
     public RegisterResult getResult(){

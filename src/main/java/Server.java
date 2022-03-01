@@ -49,7 +49,7 @@ public class Server {
 		// is received, it looks at the URL path inside the HTTP request, and
 		// forwards the request to the handler for that URL path. */
 		System.out.println("Creating contexts");
-		server.createContext("/user/register", new RegisterHandler());
+		server.createContext("/user/register", new RegisterHandler(db));
 		server.createContext("/user/login", new LoginHandler());
 		server.createContext("/clear", new ClearHandler(db));
 		server.createContext("/fill/", new FillHandler()); //[username]/{generations}

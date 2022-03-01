@@ -8,6 +8,8 @@ import java.io.IOException;
 public class LoadHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange exchange) throws IOException {
+        HandlerUtils.failResponse(exchange, "oops");
 
     }
+
 }
