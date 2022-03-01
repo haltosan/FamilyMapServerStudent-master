@@ -9,19 +9,23 @@ import Request.ClearRequest;
 import Request.LoginRequest;
 import Result.LoginResult;
 
+import java.sql.Connection;
+
 /**
  * Logs in a user, generates auth token, and serves starting data
  */
 public class LoginService extends Service {
 
     private final LoginRequest request;
+    private Connection connection;
     private LoginResult result;
 
     /**
      * @param request The request that the user sent
      */
-    public LoginService(LoginRequest request) {
+    public LoginService(LoginRequest request, Connection connection) {
         this.request = request;
+        this.connection = connection;
     }
 
     /**

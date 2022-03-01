@@ -50,7 +50,7 @@ public class Server {
 		// forwards the request to the handler for that URL path. */
 		System.out.println("Creating contexts");
 		server.createContext("/user/register", new RegisterHandler(db));
-		server.createContext("/user/login", new LoginHandler());
+		server.createContext("/user/login", new LoginHandler(db));
 		server.createContext("/clear", new ClearHandler(db));
 		server.createContext("/fill/", new FillHandler()); //[username]/{generations}
 		server.createContext("/load", new LoadHandler());
