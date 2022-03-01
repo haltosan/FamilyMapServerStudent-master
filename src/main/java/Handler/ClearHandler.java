@@ -37,12 +37,12 @@ public class ClearHandler implements HttpHandler {
                 ClearService service = new ClearService(request, connection);
                 service.execute();
                 ClearResult result = service.getResult();
-                if(result == null){
-                    //fail
+                if(!result.success){
+                    System.out.println("Fail");
                 }
             }
             else{
-                //fail
+                System.out.println("Fail");
             }
 
         }

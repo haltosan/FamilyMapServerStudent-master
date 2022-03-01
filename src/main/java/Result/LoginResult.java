@@ -5,11 +5,19 @@ package Result;
  */
 public class LoginResult extends Result {
 
-    /**
-     * @param code HTTP status code
-     * @param json Json to return to the client
-     */
-    public LoginResult(int code, String json) {
-        super(code, json);
+    public String authtoken, username, personID;
+
+    public LoginResult(String message, boolean success) {
+        super(message, success);
+        authtoken = null;
+        username = null;
+        personID = null;
+    }
+
+    public LoginResult(String authtoken, String username, String personID, boolean success) {
+        super(null, success);
+        this.authtoken = authtoken;
+        this.username = username;
+        this.personID = personID;
     }
 }

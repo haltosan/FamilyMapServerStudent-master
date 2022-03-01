@@ -7,19 +7,10 @@ import Result.LoginResult;
  */
 public class LoginRequest extends Request{
 
-    private LoginResult result;
+    public String username, password;
 
-    /**
-     *
-     * @param json The json that was sent from the client
-     */
-    public LoginRequest(String json) {
-        super(json);
-        result = null;
-    }
-
-    @Override
-    public LoginResult getResult() {
-        return result;
+    public LoginRequest(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 }

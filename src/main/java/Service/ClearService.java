@@ -4,6 +4,7 @@ import DataAccess.*;
 import Request.ClearRequest;
 import Result.ClearResult;
 
+import java.net.HttpURLConnection;
 import java.sql.Connection;
 
 /**
@@ -37,12 +38,12 @@ public class ClearService extends Service{
             for(DataAccess table : tables){
                 table.clear();
             }
-
+            result = new ClearResult("Clear succeeded.", true);
         }
         catch (DataAccessException exception){
             exception.printStackTrace();
             System.out.println("Clear service failed");
-            result = null;
+            result = new ClearResult("Error: Database access has failed", false);
         }
     }
 

@@ -5,13 +5,8 @@ package Result;
  */
 public class FillResult extends Result{
 
-    /**
-     *
-     * @param code HTTP status code
-     * @param json Json to return to the client
-     */
-    public FillResult(int code, String json) {
-        super(code, json);
+    public FillResult(String message, boolean success) {
+        super(message, success);
     }
 
 }

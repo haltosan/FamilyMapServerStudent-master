@@ -5,23 +5,16 @@ package Result;
  */
 public abstract class Result {
 
-    protected String json;
-    protected int code;
+    public String message;
+    public boolean success;
 
     /**
-     * @param code The http status code to return to the user
-     * @param json The json string to return to the client
+     * @param message Message
+     * @param success Success
      */
-    public Result(int code, String json){
-        this.code = code;
-        this.json = json;
-    }
-
-    public String getJson(){
-        return json;
-    }
-    public int getCode(){
-        return code;
+    public Result(String message, boolean success){
+        this.message = message;
+        this.success = success;
     }
 
 }

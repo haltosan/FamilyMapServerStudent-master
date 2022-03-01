@@ -7,19 +7,14 @@ import Result.RegisterResult;
  */
 public class RegisterRequest extends Request{
 
-    private RegisterResult result;
+    public String username, password, email, firstName, lastName, gender;
 
-    /**
-     *
-     * @param json The json that was sent from the client
-     */
-    public RegisterRequest(String json) {
-        super(json);
-        result = null;
-    }
-
-    @Override
-    public RegisterResult getResult() {
-        return result;
+    public RegisterRequest(String username, String password, String email, String firstName, String lastName, String gender) {
+        this.username = username;
+        this.password = password;
+        this.email = email;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.gender = gender;
     }
 }
