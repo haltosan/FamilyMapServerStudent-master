@@ -7,7 +7,7 @@ import Request.FillRequest;
  */
 public class FillService extends Service{
 
-    private FillRequest request;
+    private final FillRequest request;
 
     /**
      * @param request The request that the user sent

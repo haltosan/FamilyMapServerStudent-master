@@ -43,7 +43,7 @@ public class ClearService extends Service{
         catch (DataAccessException exception){
             exception.printStackTrace();
             System.out.println("Clear service failed");
-            result = new ClearResult("Error: Database access has failed", false);
+            result = new ClearResult("Error: Database access has failed in clear", false);
         }
     }
 
