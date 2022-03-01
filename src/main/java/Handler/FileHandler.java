@@ -25,6 +25,7 @@ public class FileHandler implements HttpHandler {
         if(!file.exists()){
             System.out.println("404 on file not existing");
             error404(exchange);
+            return;
         }
 
         try {
@@ -33,6 +34,7 @@ public class FileHandler implements HttpHandler {
         catch (IOException exception){
             exception.printStackTrace();
             error404(exchange);
+            return;
         }
         OutputStream outputStream = exchange.getResponseBody();
         try {
@@ -42,13 +44,14 @@ public class FileHandler implements HttpHandler {
         catch (IOException exception){
             exception.printStackTrace();
             error404(exchange);
+            return;
         }
         System.out.println(path + " served");
     }
 
     private void error404(HttpExchange exchange) throws IOException{
-        exchange.sendResponseHeaders(HttpURLConnection.HTTP_INTERNAL_ERROR, 0);
-        File errorPage = new File("/web/HTML/404.html");
+        exchange.sendResponseHeaders(HttpURLConnection.HTTP_NOT_FOUND, 0);
+        File errorPage = new File("web/HTML/404.html");
         OutputStream outputStream = exchange.getResponseBody();
         Files.copy(errorPage.toPath(), outputStream);
         outputStream.close();

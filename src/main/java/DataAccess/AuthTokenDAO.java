@@ -12,6 +12,11 @@ import java.sql.SQLException;
  */
 public class AuthTokenDAO extends DataAccess {
 
+    public void addStuff(Connection connection) throws DataAccessException {
+        AuthTokenDAO dao = new AuthTokenDAO(connection);
+        dao.insert(new AuthToken("a1", "p1"));
+        System.out.println(dao.find("p1").getAuthtoken());
+    }
 
     /**
      *

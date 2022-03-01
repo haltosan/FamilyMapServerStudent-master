@@ -29,9 +29,6 @@ public class ClearService extends Service{
      */
     @Override
     public void execute() {
-        if(request == null){
-            return;
-        }
         try {
             DataAccess[] tables = {new AuthTokenDAO(connection), new EventDAO(connection), new PersonDAO(connection),
                                     new UserDAO(connection)};
