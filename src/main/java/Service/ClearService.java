@@ -37,6 +37,7 @@ public class ClearService extends Service{
             for(DataAccess table : tables){
                 table.clear();
             }
+
         }
         catch (DataAccessException exception){
             exception.printStackTrace();

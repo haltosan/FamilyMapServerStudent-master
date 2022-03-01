@@ -24,8 +24,4 @@ public abstract class Result {
         return code;
     }
 
-    /**
-     * Send a request to the user. Made up of json and http status code
-     */
-    public abstract void sendRequest();
 }

@@ -14,11 +14,4 @@ public class FillResult extends Result{
         super(code, json);
     }
 
-    /**
-     * Sends response to client
-     */
-    @Override
-    public void sendRequest() {
-
-    }
 }
