@@ -1,6 +1,9 @@
 import java.io.*;
 import java.net.*;
+import java.sql.Connection;
 
+import DataAccess.DataAccessException;
+import DataAccess.Database;
 import Handler.*;
 import com.sun.net.httpserver.*;
 
@@ -33,11 +36,27 @@ public class Server {
 	// The "server" field contains the HttpServer instance for this program,
 	// which is initialized in the "run" method below.
 	private HttpServer server;
+	private final Database db;
+	private Connection connection;
+
+	public Server(){
+		db = new Database();
+		connection = null;
+	}
 
 	// This method initializes and runs the server.
 	// The "portNumber" parameter specifies the port number on which the 
 	// server should accept incoming client connections.
 	private void run(String portNumber) {
+
+		try{
+			connection = db.getConnection();
+		}
+		catch (DataAccessException exception){
+			exception.printStackTrace();
+			System.out.println("Failed to connect to the database. Exiting now");
+			System.exit(1);
+		}
 		
 		// Since the server has no "user interface", it should display "log"
 		// messages containing information about its internal activities.
@@ -78,7 +97,7 @@ public class Server {
 
 		server.createContext("/user/register", new RegisterHandler());
 		server.createContext("/user/login", new LoginHandler());
-		server.createContext("/clear", new ClearHandler());
+		server.createContext("/clear", new ClearHandler(connection));
 		server.createContext("/fill/", new FillHandler()); //[username]/{generations}
 		server.createContext("/load", new LoadHandler());
 		server.createContext("/person/", new PersonHandler()); //[personID]

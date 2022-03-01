@@ -1,6 +1,8 @@
 package Handler;
 
 import Request.ClearRequest;
+import Result.ClearResult;
+import Service.ClearService;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.google.gson.Gson;
@@ -10,8 +12,16 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.sql.Connection;
 
 public class ClearHandler implements HttpHandler {
+
+    private final Connection connection;
+
+    public ClearHandler(Connection connection){
+        this.connection = connection;
+    }
+
     @Override
     public void handle(HttpExchange exchange) throws IOException {
         boolean success = false;
@@ -24,6 +34,15 @@ public class ClearHandler implements HttpHandler {
                 System.out.println("-- /clear --");
                 System.out.println(requestData);
                 ClearRequest request = gson.fromJson(requestData, ClearRequest.class);
+                ClearService service = new ClearService(request, connection);
+                service.execute();
+                ClearResult result = service.getResult();
+                if(result == null){
+                    //fail
+                }
+            }
+            else{
+                //fail
             }
 
         }
