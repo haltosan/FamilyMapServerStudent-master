@@ -45,6 +45,24 @@ public class AuthTokenDAO extends DataAccess {
         }
     }
 
+    public AuthToken findFromToken(String authToken) throws DataAccessException{
+        String sql = "SELECT * FROM " + tableName + " WHERE authtoken = ?";
+        try(PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setString(1, authToken);
+            ResultSet result = statement.executeQuery();
+            if(result.next()){
+                return new AuthToken(result.getString("authtoken"), result.getString("username"));
+            }
+            else{
+                return null;
+            }
+        }
+        catch (SQLException exception){
+            exception.printStackTrace();
+            throw new DataAccessException("Issue in findFromToken authToken");
+        }
+    }
+
     public void insert(AuthToken token) throws DataAccessException{
         String sql = "INSERT INTO " + tableName + "(authtoken, username) VALUES(?,?)";
         try(PreparedStatement statement = connection.prepareStatement(sql)){

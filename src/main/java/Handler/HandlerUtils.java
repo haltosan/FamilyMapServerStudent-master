@@ -12,7 +12,7 @@ import java.net.HttpURLConnection;
 import java.nio.charset.StandardCharsets;
 
 public class HandlerUtils {
-    public static void failResponse(HttpExchange exchange, String message) throws IOException {
+    public static void sendFail(HttpExchange exchange, String message) throws IOException {
         Gson gson = new Gson();
         OutputStream responseBody = exchange.getResponseBody();
         String json = gson.toJson(new ClearResult("Error: " + message, false)); //clear result is used just because it doesn't have extra data members

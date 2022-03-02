@@ -2,7 +2,7 @@ package Result;
 
 
 public class PersonResult extends Result {
-    String associatedUsername, personID, firstName, lastName, gender, fatherID, motherID, spouseID;
+    public String associatedUsername, personID, firstName, lastName, gender, fatherID, motherID, spouseID;
 
     public PersonResult(String associatedUsername, String personID, String firstName, String lastName, String gender, String fatherID, String motherID, String spouseID, boolean success) {
         super(null, success);
