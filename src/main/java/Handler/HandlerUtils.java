@@ -1,7 +1,12 @@
 package Handler;
 
+import DataAccess.AuthTokenDAO;
+import DataAccess.DataAccessException;
+import DataAccess.Database;
+import Model.AuthToken;
 import Result.ClearResult;
 import com.google.gson.Gson;
+import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 
 import java.io.IOException;
@@ -12,20 +17,27 @@ import java.net.HttpURLConnection;
 import java.nio.charset.StandardCharsets;
 
 public class HandlerUtils {
+
     public static void sendFail(HttpExchange exchange, String message) throws IOException {
         Gson gson = new Gson();
-        OutputStream responseBody = exchange.getResponseBody();
         String json = gson.toJson(new ClearResult("Error: " + message, false)); //clear result is used just because it doesn't have extra data members
-        byte[] jsonBytes = json.getBytes(StandardCharsets.UTF_8); //terrible way of doing this but I need to sleep
-        exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, jsonBytes.length);
-        responseBody.write(jsonBytes);
-        responseBody.close();
+        sendResult(exchange, HttpURLConnection.HTTP_INTERNAL_ERROR, json);
     }
 
     public static void sendSuccess(HttpExchange exchange, String json) throws IOException {
+        sendResult(exchange, HttpURLConnection.HTTP_OK, json);
+    }
+
+    public static void sendNotAuthorized(HttpExchange exchange, String message) throws IOException {
+        Gson gson = new Gson();
+        String json = gson.toJson(new ClearResult("Error: " + message, false));
+        sendResult(exchange, HttpURLConnection.HTTP_UNAUTHORIZED, json);
+    }
+
+    public static void sendResult(HttpExchange exchange, int status, String json) throws IOException {
         OutputStream responseBody = exchange.getResponseBody();
-        byte[] jsonBytes = json.getBytes(StandardCharsets.UTF_8);
-        exchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, jsonBytes.length);
+        byte[] jsonBytes = json.getBytes(StandardCharsets.UTF_8); //terrible way of doing this but I need to sleep
+        exchange.sendResponseHeaders(status, jsonBytes.length);
         responseBody.write(jsonBytes);
         responseBody.close();
     }
@@ -39,5 +51,29 @@ public class HandlerUtils {
             sb.append(buf, 0, len);
         }
         return sb.toString();
+    }
+
+    public static AuthToken authorization(HttpExchange exchange, Database db) throws IOException {
+        Headers requestHeaders = exchange.getRequestHeaders();
+        if(!requestHeaders.containsKey("Authorization")){
+            System.out.print("No authorization");
+            sendNotAuthorized(exchange, "No authorization.");
+            db.closeConnection(false);
+            return null;
+        }
+
+        AuthTokenDAO authTokenDAO;
+        AuthToken authToken;
+        try {
+            authTokenDAO = new AuthTokenDAO(db.getConnection());
+            authToken = authTokenDAO.findFromToken(requestHeaders.getFirst("Authorization"));
+        } catch (DataAccessException exception) {
+            exception.printStackTrace();
+            HandlerUtils.sendFail(exchange, "Authorization mechanism failed.");
+            db.closeConnection(false);
+            return null;
+        }
+
+        return authToken;
     }
 }

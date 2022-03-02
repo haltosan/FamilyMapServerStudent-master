@@ -1,22 +1,15 @@
 package Handler;
 
-import DataAccess.AuthTokenDAO;
 import DataAccess.DataAccessException;
 import DataAccess.Database;
-import DataAccess.PersonDAO;
 import Model.AuthToken;
-import Model.Person;
-import Request.PersonRequest;
 import Result.PersonResult;
 import Service.PersonService;
 import com.google.gson.Gson;
-import com.sun.net.httpserver.Headers;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import jdk.jshell.execution.Util;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 public class PersonHandler implements HttpHandler {
 
@@ -37,36 +30,17 @@ public class PersonHandler implements HttpHandler {
             return;
         }
 
-        Headers requestHeaders = exchange.getRequestHeaders();
-        if(!requestHeaders.containsKey("Authorization")){
-            System.out.print("No authorization");
-            HandlerUtils.sendFail(exchange, "No authorization.");
-            db.closeConnection(false);
-            return;
-        }
-
-        AuthTokenDAO authTokenDAO;
-        AuthToken authToken;
-        try {
-            authTokenDAO = new AuthTokenDAO(db.getConnection());
-            authToken = authTokenDAO.findFromToken(requestHeaders.getFirst("Authorization"));
-        } catch (DataAccessException exception) {
-            exception.printStackTrace();
-            HandlerUtils.sendFail(exchange, "Authorization mechanism failed.");
-            db.closeConnection(false);
-            return;
-        }
-
+        AuthToken authToken = HandlerUtils.authorization(exchange, db);
         if(authToken == null){
             System.out.print("No username found for authToken");
-            HandlerUtils.sendFail(exchange, "Not authorized.");
+            HandlerUtils.sendNotAuthorized(exchange, "Not authorized.");
             db.closeConnection(false);
             return;
         }
 
         String[] url = exchange.getRequestURI().toString().split("/");
-        String personID = url[url.length - 1];
-        System.out.println("-- /person/[personID] --");
+        String personID = url[/*url.length - 1*/ 2]; // ["" / "person" / "PERSON_ID"]
+        System.out.println("-- /person/" + personID + " --");
         PersonService service;
         try{
             service = new PersonService(db.getConnection(), personID, authToken.getUsername());
@@ -99,4 +73,6 @@ public class PersonHandler implements HttpHandler {
         System.out.println("Person success");
         db.closeConnection(true);
     }
+
+
 }
