@@ -11,9 +11,9 @@ public class Person extends Model {
     private final String firstName;
     private final String lastName; //4
     private final String gender;
-    private final String fatherID; //6
-    private final String motherID;
-    private final String spouseID; //8
+    private String fatherID; //6
+    private String motherID;
+    private String spouseID; //8
 
     /**
      *
@@ -70,6 +70,18 @@ public class Person extends Model {
 
     public String getSpouseID() {
         return spouseID;
+    }
+
+    public void setFatherID(String fatherID) {
+        this.fatherID = fatherID;
+    }
+
+    public void setMotherID(String motherID) {
+        this.motherID = motherID;
+    }
+
+    public void setSpouseID(String spouseID) {
+        this.spouseID = spouseID;
     }
 
     @Override

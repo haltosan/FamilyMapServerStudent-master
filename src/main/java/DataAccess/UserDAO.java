@@ -77,4 +77,22 @@ public class UserDAO extends DataAccess {
         }
     }
 
+    public User findFromUsername(String username) throws DataAccessException {
+        String sql = "SELECT * FROM User WHERE username = ?";
+        try(PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setString(1, username);
+            ResultSet resultSet = statement.executeQuery();
+            if(resultSet.next()){
+                return new User(resultSet.getString("username"), resultSet.getString("password"), resultSet.getString("email"), resultSet.getString("firstName"), resultSet.getString("lastName"), resultSet.getString("gender"), resultSet.getString("personID"));
+            }
+            else{
+                return null;
+            }
+        }
+        catch(SQLException exception){
+            exception.printStackTrace();
+            throw new DataAccessException("Issue in User username find");
+        }
+    }
+
 }
