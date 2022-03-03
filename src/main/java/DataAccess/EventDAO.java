@@ -3,22 +3,13 @@ package DataAccess;
 import Model.Event;
 
 import java.sql.*;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * The data access object for getting events
  */
 public class EventDAO extends DataAccess {
-
-    public static void main(String[] args) throws DataAccessException {
-        Database db = new Database();
-        EventDAO dao = new EventDAO(db.getConnection());
-        Event event1 = new Event("1", "a", "u1", 10, 11, "c1", "ci1", "basic", 1910);
-        Event event2 = new Event("2", "b", "u1", 20, 21, "c2", "ci1", "basic", 1920);
-        Event event3 = new Event("1", "c", "u1", 10, 11, "c1", "ci1", "basic", 1910);
-
-        dao.clear();
-        db.closeConnection(true);
-    }
 
     /**
      *
@@ -51,7 +42,7 @@ public class EventDAO extends DataAccess {
     }
 
     public Event find(String eventID) throws DataAccessException{
-        String sql = "Select * FROM Event WHERE eventID = ?";
+        String sql = "SELECT * FROM " + tableName + " WHERE eventID = ?";
         try(PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setString(1, eventID);
             ResultSet resultSet = statement.executeQuery();
@@ -70,15 +61,26 @@ public class EventDAO extends DataAccess {
         }
     }
 
-//    @Override
-//    public void clear() throws DataAccessException {
-//        String sql = "DELETE FROM Events";
-//        try(PreparedStatement statement = connection.prepareStatement(sql)){
-//            statement.executeUpdate();
-//        } catch (SQLException exception){
-//            exception.printStackTrace();
-//            throw new DataAccessException("Issue with clearing Events");
-//        }
-//    }
+    public Event[] findAll(/*filter parameter*/) throws DataAccessException{
+        String sql = "SELECT * FROM " + tableName;
+        try(PreparedStatement statement = connection.prepareStatement(sql)){
+            ResultSet resultSet = statement.executeQuery();
+            LinkedList<Event> events = new LinkedList<>();
+            while(resultSet.next()){
+                events.add(new Event(resultSet.getString("eventID"), resultSet.getString("associatedUsername"),
+                        resultSet.getString("personID"), resultSet.getDouble("latitude"),
+                        resultSet.getDouble("longitude"),resultSet.getString("country"),
+                        resultSet.getString("city"),resultSet.getString("eventType"),resultSet.getInt("year")));
+            }
+            if(events.size() <= 0){
+                return null;
+            }
+            return events.toArray(new Event[0]);
+        }
+        catch(SQLException exception){
+            exception.printStackTrace();
+            throw new DataAccessException("Issue in find Event");
+        }
+    }
 
 }

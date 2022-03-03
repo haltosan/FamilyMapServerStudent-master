@@ -55,7 +55,7 @@ public class Server {
 		server.createContext("/fill/", new FillHandler()); //[username]/{generations}
 		server.createContext("/load", new LoadHandler());
 		server.createContext("/person/", new PersonHandler(db)); //[personID]
-		server.createContext("/person", new AllPersonHandler());
+		server.createContext("/person", new AllPersonHandler(db));
 		server.createContext("/event/", new EventHandler(db)); //[eventID]
 		server.createContext("/event", new AllEventHandler());
 		server.createContext("/", new FileHandler());

@@ -13,7 +13,7 @@ public class RegisterResult extends Result{
     public RegisterResult(String authtoken, String username, String personID, boolean success){
         super(null, success);
         this.authtoken = authtoken;
-        this.username = authtoken;
+        this.username = username;
         this.personID = personID;
     }
 
