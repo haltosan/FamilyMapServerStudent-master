@@ -28,7 +28,7 @@ public class EventHandler implements HttpHandler {
 
         if(!exchange.getRequestMethod().equalsIgnoreCase("get")){
             System.out.println("Bad method");
-            HandlerUtils.sendFail(exchange, "Bad method.");
+            HandlerUtils.sendServerError(exchange, "Bad method.");
             db.closeConnection(false);
             return;
         }
@@ -36,7 +36,7 @@ public class EventHandler implements HttpHandler {
         Headers requestHeaders = exchange.getRequestHeaders();
         if(!requestHeaders.containsKey("Authorization")){
             System.out.print("No authorization");
-            HandlerUtils.sendFail(exchange, "No authorization.");
+            HandlerUtils.sendServerError(exchange, "No authorization.");
             db.closeConnection(false);
             return;
         }
@@ -44,7 +44,7 @@ public class EventHandler implements HttpHandler {
         AuthToken authToken = HandlerUtils.authorization(exchange, db);
         if(authToken == null){
             System.out.print("No username found for authToken");
-            HandlerUtils.sendFail(exchange, "Not authorized.");
+            HandlerUtils.sendServerError(exchange, "Not authorized.");
             db.closeConnection(false);
             return;
         }
@@ -59,7 +59,7 @@ public class EventHandler implements HttpHandler {
         catch (DataAccessException exception){
             exception.printStackTrace();
             System.out.println("Service faulted");
-            HandlerUtils.sendFail(exchange, "Service failed.");
+            HandlerUtils.sendServerError(exchange, "Service failed.");
             db.closeConnection(false);
             return;
         }
@@ -69,7 +69,7 @@ public class EventHandler implements HttpHandler {
         if(!result.success){
             System.out.print("Service failed: ");
             System.out.println(result.message);
-            HandlerUtils.sendFail(exchange, "Service failed.");
+            HandlerUtils.sendServerError(exchange, "Service failed.");
             db.closeConnection(false);
             return;
         }

@@ -61,9 +61,10 @@ public class EventDAO extends DataAccess {
         }
     }
 
-    public Event[] findAll(/*filter parameter*/) throws DataAccessException{
-        String sql = "SELECT * FROM " + tableName;
+    public Event[] findAll(String associatedUsername) throws DataAccessException{
+        String sql = "SELECT * FROM " + tableName + " WHERE associatedUsername = ?";
         try(PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setString(1, associatedUsername);
             ResultSet resultSet = statement.executeQuery();
             LinkedList<Event> events = new LinkedList<>();
             while(resultSet.next()){

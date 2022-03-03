@@ -18,20 +18,25 @@ import java.nio.charset.StandardCharsets;
 
 public class HandlerUtils {
 
-    public static void sendFail(HttpExchange exchange, String message) throws IOException {
-        Gson gson = new Gson();
+    private static final Gson gson = new Gson();
+
+    public static void sendServerError(HttpExchange exchange, String message) throws IOException {
         String json = gson.toJson(new ClearResult("Error: " + message, false)); //clear result is used just because it doesn't have extra data members
         sendResult(exchange, HttpURLConnection.HTTP_INTERNAL_ERROR, json);
     }
 
-    public static void sendSuccess(HttpExchange exchange, String json) throws IOException {
-        sendResult(exchange, HttpURLConnection.HTTP_OK, json);
-    }
-
     public static void sendNotAuthorized(HttpExchange exchange, String message) throws IOException {
-        Gson gson = new Gson();
         String json = gson.toJson(new ClearResult("Error: " + message, false));
         sendResult(exchange, HttpURLConnection.HTTP_UNAUTHORIZED, json);
+    }
+
+    public static void sendUserError(HttpExchange exchange, String message) throws IOException {
+        String json = gson.toJson(new ClearResult("Error: " + message, false));
+        sendResult(exchange, HttpURLConnection.HTTP_BAD_REQUEST, json);
+    }
+
+    public static void sendSuccess(HttpExchange exchange, String json) throws IOException {
+        sendResult(exchange, HttpURLConnection.HTTP_OK, json);
     }
 
     public static void sendResult(HttpExchange exchange, int status, String json) throws IOException {
@@ -69,7 +74,7 @@ public class HandlerUtils {
             authToken = authTokenDAO.findFromToken(requestHeaders.getFirst("Authorization"));
         } catch (DataAccessException exception) {
             exception.printStackTrace();
-            HandlerUtils.sendFail(exchange, "Authorization mechanism failed.");
+            HandlerUtils.sendServerError(exchange, "Authorization mechanism failed.");
             db.closeConnection(false);
             return null;
         }

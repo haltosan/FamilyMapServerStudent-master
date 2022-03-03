@@ -25,7 +25,7 @@ public class PersonHandler implements HttpHandler {
 
         if(!exchange.getRequestMethod().equalsIgnoreCase("get")){
             System.out.print("Bad method");
-            HandlerUtils.sendFail(exchange, "Bad method");
+            HandlerUtils.sendServerError(exchange, "Bad method");
             db.closeConnection(false);
             return;
         }
@@ -47,7 +47,7 @@ public class PersonHandler implements HttpHandler {
         }
         catch (DataAccessException exception){
             exception.printStackTrace();
-            HandlerUtils.sendFail(exchange, "Service faulted.");
+            HandlerUtils.sendServerError(exchange, "Service faulted.");
             db.closeConnection(false);
             return;
         }
@@ -56,14 +56,14 @@ public class PersonHandler implements HttpHandler {
         PersonResult result = service.getResult();
         if(result == null){
             System.out.println("Person not found");
-            HandlerUtils.sendFail(exchange, "Person not found.");
+            HandlerUtils.sendServerError(exchange, "Person not found.");
             db.closeConnection(false);
             return;
         }
         if(!result.success){
             System.out.print("Service failed: ");
             System.out.println(result.message);
-            HandlerUtils.sendFail(exchange, "Service failed.");
+            HandlerUtils.sendServerError(exchange, "Service failed.");
             db.closeConnection(false);
             return;
         }

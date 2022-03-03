@@ -57,7 +57,7 @@ public class Server {
 		server.createContext("/person/", new PersonHandler(db)); //[personID]
 		server.createContext("/person", new AllPersonHandler(db));
 		server.createContext("/event/", new EventHandler(db)); //[eventID]
-		server.createContext("/event", new AllEventHandler());
+		server.createContext("/event", new AllEventHandler(db));
 		server.createContext("/", new FileHandler());
 
 		/* Tells the HttpServer to start accepting incoming client connections.

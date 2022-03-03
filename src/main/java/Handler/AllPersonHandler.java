@@ -24,18 +24,6 @@ public class AllPersonHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-
-        try {
-            PersonDAO dao = new PersonDAO(db.getConnection());
-            dao.insert(new Person("p1", "a", "fn", "ln", "m", null, null, null));
-            dao.insert(new Person("p2", "a", "fn", "ln", "f", null, null, null));
-            dao.insert(new Person("p3", "a", "fn", "lln", "m", null, null, null));
-            db.closeConnection(true);
-        } catch (DataAccessException e) {
-            e.printStackTrace();
-        }
-
-
         Gson gson = new Gson();
 
         try {
@@ -45,7 +33,7 @@ public class AllPersonHandler implements HttpHandler {
             System.out.println("All person succeeded");
         }
         catch (UserErrorException exception) {
-            HandlerUtils.sendResult(exchange, HttpURLConnection.HTTP_BAD_REQUEST, exception.getMessage());
+            HandlerUtils.sendUserError(exchange, exception.getMessage());
             db.closeConnection(false);
         }
         catch (AuthorizationException exception) {
@@ -53,7 +41,7 @@ public class AllPersonHandler implements HttpHandler {
             db.closeConnection(false);
         }
         catch (ServerErrorException exception) {
-            HandlerUtils.sendFail(exchange, exception.getMessage());
+            HandlerUtils.sendServerError(exchange, exception.getMessage());
             db.closeConnection(false);
         }
 

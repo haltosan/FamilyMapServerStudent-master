@@ -26,7 +26,7 @@ public class LoginHandler implements HttpHandler {
 
         if(!exchange.getRequestMethod().equalsIgnoreCase("post")){
             System.out.println("Bad method");
-            HandlerUtils.sendFail(exchange, "Bad method.");
+            HandlerUtils.sendServerError(exchange, "Bad method.");
             db.closeConnection(false);
             return;
         }
@@ -41,7 +41,7 @@ public class LoginHandler implements HttpHandler {
         }
         catch (DataAccessException exception){
             exception.printStackTrace();
-            HandlerUtils.sendFail(exchange, "Service faulted.");
+            HandlerUtils.sendServerError(exchange, "Service faulted.");
             db.closeConnection(false);
             return;
         }
@@ -51,7 +51,7 @@ public class LoginHandler implements HttpHandler {
         if(!result.success){
             System.out.print("Service failed: ");
             System.out.println(result.message);
-            HandlerUtils.sendFail(exchange, "Service failed.");
+            HandlerUtils.sendServerError(exchange, "Service failed.");
             db.closeConnection(false);
             return;
         }
