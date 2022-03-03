@@ -23,18 +23,6 @@ public class AllEventHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange exchange) throws IOException {
-
-        try {
-            EventDAO eventDAO = new EventDAO(db.getConnection());
-            eventDAO.insert(new Event("e1","a","p1",100,-100,"oui","ouioui","idk",999));
-            eventDAO.insert(new Event("e2","a","p1",100,-100,"oui","ouioui","idk",999));
-            eventDAO.insert(new Event("e3","a","p1",100,-100,"oui","ouioui","idk",999));
-            eventDAO.insert(new Event("e4","b","p1",100,-100,"oui","ouioui","idk",999));
-            db.closeConnection(true);
-        } catch (DataAccessException e) {
-            e.printStackTrace();
-        }
-
         Gson gson = new Gson();
 
         try {
