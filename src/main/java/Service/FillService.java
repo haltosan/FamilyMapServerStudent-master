@@ -58,7 +58,13 @@ public class FillService extends Service{
 
         Person userPerson = new Person(user.getPersonID(), username, user.getFirstName(), user.getLastName(), user.getGender(), null, null, null);
         int userBirthYear = 2000;
-        //todo: birth for user
+        try {
+            makeBirth(userPerson.getPersonID(), userBirthYear);
+        } catch (DataAccessException exception) {
+            exception.printStackTrace();
+            result = new FillResult("Failed when giving user birth event", false);
+            return;
+        }
 
         //breadth first tree traversal! (I like these)
         Queue<Person> people = new ArrayDeque<>();
@@ -66,16 +72,22 @@ public class FillService extends Service{
         people.add(userPerson);
         birthYear.add(userBirthYear);
         Queue<Person> donePeople = new ArrayDeque<>();
-        int currentGeneration = 0;
+        int currentGeneration = 1;
         int peoplePerGeneration = 0;
-        while(currentGeneration >= generationCount){
+        int personCount = 0;
+        int eventCount = 1; //user birth counts as 1
+        while(currentGeneration <= generationCount){
             int childBirthYear = birthYear.remove();
             Person child = people.remove();
-            peoplePerGeneration++;
 
             Person mother = newPerson("f");
             Person father = newPerson("m");
-            int marriageDate = childBirthYear - 20;
+            //the marriage paperwork is being signed
+            mother.setSpouseID(father.getPersonID());
+            father.setSpouseID(mother.getPersonID());
+
+            peoplePerGeneration += 2;
+            int marriageDate = childBirthYear - 1;
             double[] marriageLatLong = newLongLat();
             String[] marriageLocation = newCountryCity();
 
@@ -85,42 +97,44 @@ public class FillService extends Service{
                 try {
                     makeBirth(parent.getPersonID(), bDay); //todo: add variation to dates?
                     //Mawage. Mawage is wot bwings us togeder tooday. Mawage, that bwessed awangment, that dweam wifin a dweam… And wuv, tru wuv, will fowow you foweva… So tweasure your wuv.
-                    eventDAO.insert(new Event("event", username, parent.getPersonID(), marriageLatLong[0], marriageLatLong[1], marriageLocation[0], marriageLocation[1], "marriage", marriageDate));
+                    eventDAO.insert(new Event("event" + Nonce.next(), username, parent.getPersonID(), marriageLatLong[0], marriageLatLong[1], marriageLocation[0], marriageLocation[1], "marriage", marriageDate));
                     makeDeath(parent.getPersonID(), bDay + 87);
+                    eventCount += 3;
                     birthYear.add(bDay);
+                    people.add(parent); //get them some parents
+                    if(currentGeneration + 1 > generationCount){
+                        personDAO.insert(parent);
+                        personCount++;
+                    }
                 } catch (DataAccessException exception) {
                     exception.printStackTrace();
-                    result = new FillResult("Failed when creating events for " + parent.getPersonID(), false);
+                    result = new FillResult("Failed when creating life events for " + parent.getPersonID(), false);
                     return;
                 }
             }
-            //now the paperwork is being signed
-            mother.setSpouseID(father.getPersonID());
-            father.setSpouseID(mother.getPersonID());
-            //the miracle of birth!
+
+            //the miracle of birth! (or maybe adoption)
             child.setMotherID(mother.getPersonID());
             child.setFatherID(father.getPersonID());
             donePeople.add(child); //make sure we add child to db later
 
-            people.add(mother);
-            people.add(father);
-
-            if(peoplePerGeneration >= Math.pow(2, currentGeneration)){
+            if(peoplePerGeneration >= Math.pow(2, currentGeneration)){ //each generation has 2^n people
                 currentGeneration++;
                 peoplePerGeneration = 0;
             }
         }
 
-        //for person in donePeople : add to db
-
-        try {
-            personDAO.insert(userPerson);
-        } catch (DataAccessException exception) {
-            exception.printStackTrace();
-            result = new FillResult("Creating user's person faulted", false);
-            return;
+        for(Person person : donePeople){
+            try {
+                personDAO.insert(person);
+                personCount++;
+            } catch (DataAccessException exception) {
+                exception.printStackTrace();
+                result = new FillResult("Adding people to database faulted on " + person.getPersonID(), false);
+                return;
+            }
         }
-        result = new FillResult("this has worked", true);
+        result = new FillResult("Successfully added " + personCount + " persons and " + eventCount + " events to the database.", true);
     }
 
     public FillResult getResult() {

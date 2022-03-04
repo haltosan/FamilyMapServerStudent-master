@@ -52,7 +52,7 @@ public class Server {
 		server.createContext("/user/register", new RegisterHandler(db));
 		server.createContext("/user/login", new LoginHandler(db));
 		server.createContext("/clear", new ClearHandler(db));
-		server.createContext("/fill/", new FillHandler()); //[username]/{generations}
+		server.createContext("/fill/", new FillHandler(db)); //[username]/{generations}
 		server.createContext("/load", new LoadHandler());
 		server.createContext("/person/", new PersonHandler(db)); //[personID]
 		server.createContext("/person", new AllPersonHandler(db));
