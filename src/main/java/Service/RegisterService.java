@@ -36,8 +36,13 @@ public class RegisterService extends Service {
         String personID = "person" + Nonce.next();
         User user = new User(request.username, request.password, request.email, request.firstName, request.lastName, request.gender, personID);
         UserDAO userDAO = new UserDAO(connection);
+
         AuthTokenDAO authTokenDAO = new AuthTokenDAO(connection);
         try {
+            if(userDAO.findFromUsername(request.username) != null){
+                result = new RegisterResult("Error: user already registered.", false);
+                return;
+            }
             userDAO.insert(user);
         }
         catch (DataAccessException exception){

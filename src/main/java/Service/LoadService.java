@@ -62,7 +62,7 @@ public class LoadService extends Service{
             }
         }
 
-        result = new LoadResult("Success", true);
+        result = new LoadResult("Successfully added " + users.length + " users, " + people.length + " persons, and " + events.length + " events", true);
     }
 
     public LoadResult getResult() {

@@ -27,6 +27,17 @@ public class AuthTokenDAO extends DataAccess {
         tableName = "authToken";
     }
 
+    public void clear(String username) throws DataAccessException{
+        String sql = "DELETE FROM " + tableName + " Where username = ?";
+        try(PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setString(1, username);
+            statement.executeUpdate();
+        } catch (SQLException exception){
+            exception.printStackTrace();
+            throw new DataAccessException("Issue with clearing " + tableName);
+        }
+    }
+
     public AuthToken find(String username) throws DataAccessException{
         String sql = "SELECT * FROM " + tableName + " WHERE username = ?";
         try(PreparedStatement statement = connection.prepareStatement(sql)){

@@ -22,6 +22,17 @@ public class PersonDAO extends DataAccess {
         tableName = "Person";
     }
 
+    public void clear(String username) throws DataAccessException{
+        String sql = "DELETE FROM " + tableName + " WHERE associatedUsername = ?";
+        try(PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setString(1, username);
+            statement.executeUpdate();
+        } catch (SQLException exception){
+            exception.printStackTrace();
+            throw new DataAccessException("Issue with clearing " + tableName);
+        }
+    }
+
     public Person find(String personID) throws DataAccessException{
         String sql = "SELECT * FROM " + tableName + " WHERE personID = ?";
         try(PreparedStatement statement = connection.prepareStatement(sql)){

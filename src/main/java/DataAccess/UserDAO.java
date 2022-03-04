@@ -21,6 +21,17 @@ public class UserDAO extends DataAccess {
         tableName = "User";
     }
 
+    public void clear(String username) throws DataAccessException{
+        String sql = "DELETE FROM " + tableName + " WHERE username = ?";
+        try(PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setString(1, username);
+            statement.executeUpdate();
+        } catch (SQLException exception){
+            exception.printStackTrace();
+            throw new DataAccessException("Issue with clearing " + tableName);
+        }
+    }
+
     public void insert(User user) throws DataAccessException{
         String sql = "INSERT INTO " + tableName + " (username, password, email, firstName, lastName, gender, personID) VALUES(?,?,?,?,?,?,?)";
         try(PreparedStatement statement = connection.prepareStatement(sql)){

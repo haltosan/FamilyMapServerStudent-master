@@ -98,7 +98,7 @@ public class FillService extends Service{
                     makeBirth(parent.getPersonID(), bDay); //todo: add variation to dates?
                     //Mawage. Mawage is wot bwings us togeder tooday. Mawage, that bwessed awangment, that dweam wifin a dweam… And wuv, tru wuv, will fowow you foweva… So tweasure your wuv.
                     eventDAO.insert(new Event("event" + Nonce.next(), username, parent.getPersonID(), marriageLatLong[0], marriageLatLong[1], marriageLocation[0], marriageLocation[1], "marriage", marriageDate));
-                    makeDeath(parent.getPersonID(), bDay + 87);
+                    makeDeath(parent.getPersonID(), bDay + 30);
                     eventCount += 3;
                     birthYear.add(bDay);
                     people.add(parent); //get them some parents

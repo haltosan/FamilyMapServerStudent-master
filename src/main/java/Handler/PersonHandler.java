@@ -56,7 +56,7 @@ public class PersonHandler implements HttpHandler {
         PersonResult result = service.getResult();
         if(result == null){
             System.out.println("Person not found");
-            HandlerUtils.sendServerError(exchange, "Person not found.");
+            HandlerUtils.sendSuccess(exchange, "Person not found.");
             db.closeConnection(false);
             return;
         }

@@ -4,6 +4,7 @@ import DataAccess.DataAccessException;
 import DataAccess.Database;
 import Request.RegisterRequest;
 import Result.RegisterResult;
+import Service.FillService;
 import Service.RegisterService;
 import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
@@ -11,6 +12,7 @@ import com.sun.net.httpserver.HttpHandler;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.zip.DataFormatException;
 
 public class RegisterHandler implements HttpHandler {
 
@@ -35,6 +37,7 @@ public class RegisterHandler implements HttpHandler {
         String requestData = HandlerUtils.readString(body);
         System.out.println("-- /register --");
         RegisterRequest request = gson.fromJson(requestData, RegisterRequest.class);
+
         RegisterService service;
         try{
             service = new RegisterService(request, db.getConnection());
@@ -56,7 +59,24 @@ public class RegisterHandler implements HttpHandler {
             return;
         }
 
-        System.out.println(result.message + "|" + result.authtoken);
+
+        try {
+            FillService fillService = new FillService(db.getConnection(), request.username, 4);
+            fillService.execute();
+            if(!fillService.getResult().success){
+                db.closeConnection(false);
+                System.out.println("Fill service faulted.");
+                HandlerUtils.sendServerError(exchange, "Fill service faulted.");
+                return;
+            }
+        } catch (DataAccessException exception) {
+            exception.printStackTrace();
+            db.closeConnection(false);
+            System.out.println("Fill service faulted.");
+            HandlerUtils.sendServerError(exchange, "Fill service faulted.");
+            return;
+        }
+
         String json = gson.toJson(result);
         HandlerUtils.sendSuccess(exchange, json);
         System.out.println("Register success");

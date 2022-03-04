@@ -45,6 +45,10 @@ public class LoginService extends Service {
             result = new LoginResult("Error: Issue with finding user", false);
             return;
         }
+        if(foundUser == null){
+            result = new LoginResult("Error: User not found.", false);
+            return;
+        }
         //look up auth token
         AuthTokenDAO authTokenDAO = new AuthTokenDAO(connection);
         AuthToken authToken = new AuthToken("token" + Nonce.next(), request.username);

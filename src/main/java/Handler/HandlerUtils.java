@@ -22,12 +22,12 @@ public class HandlerUtils {
 
     public static void sendServerError(HttpExchange exchange, String message) throws IOException {
         String json = gson.toJson(new ClearResult("Error: " + message, false)); //clear result is used just because it doesn't have extra data members
-        sendResult(exchange, HttpURLConnection.HTTP_INTERNAL_ERROR, json);
+        sendResult(exchange, HttpURLConnection.HTTP_BAD_REQUEST, json);
     }
 
     public static void sendNotAuthorized(HttpExchange exchange, String message) throws IOException {
         String json = gson.toJson(new ClearResult("Error: " + message, false));
-        sendResult(exchange, HttpURLConnection.HTTP_UNAUTHORIZED, json);
+        sendResult(exchange, HttpURLConnection.HTTP_BAD_REQUEST, json);
     }
 
     public static void sendUserError(HttpExchange exchange, String message) throws IOException {

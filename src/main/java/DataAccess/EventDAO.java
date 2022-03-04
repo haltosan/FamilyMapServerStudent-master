@@ -20,6 +20,17 @@ public class EventDAO extends DataAccess {
         tableName = "Event";
     }
 
+    public void clear(String username) throws DataAccessException{
+        String sql = "DELETE FROM " + tableName + " WHERE associatedUsername = ?";
+        try(PreparedStatement statement = connection.prepareStatement(sql)){
+            statement.setString(1, username);
+            statement.executeUpdate();
+        } catch (SQLException exception){
+            exception.printStackTrace();
+            throw new DataAccessException("Issue with clearing " + tableName);
+        }
+    }
+
     public void insert(Event event) throws DataAccessException{
         String sql = "INSERT INTO " + tableName + " (EventID, AssociatedUsername, PersonID, Latitude, Longitude, Country, City, EventType, Year) VALUES(?,?,?,?,?,?,?,?,?)";
         try(PreparedStatement statement = connection.prepareStatement(sql)){

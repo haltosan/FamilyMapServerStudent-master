@@ -3,17 +3,20 @@ package Handler;
 import DataAccess.DataAccessException;
 import DataAccess.Database;
 import Result.FillResult;
+import Service.ClearService;
 import Service.FillService;
 import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 import java.io.IOException;
-import java.rmi.ServerError;
+import java.util.ArrayList;
 
 public class FillHandler implements HttpHandler {
 
     private final Database db;
+
+    private static final ArrayList<String> filledUsernames = new ArrayList<>();
 
     public FillHandler(Database db) {
         this.db = db;
@@ -54,6 +57,21 @@ public class FillHandler implements HttpHandler {
         }
 
         System.out.println("-- /fill --");
+
+        if(filledUsernames.contains(username)){
+            //clear current data
+            try {
+                ClearService clearService = new ClearService( username,null, db.getConnection()); //todo: clear after re-fill on same user
+                clearService.execute();
+                if(!clearService.getResult().success){
+                    throw new ServerErrorException("Clear service failed.");
+                }
+            } catch (DataAccessException exception) {
+                exception.printStackTrace();
+                throw new ServerErrorException("Clear service faulted.");
+            }
+        }
+
         FillService service;
         try{
             service = new FillService(db.getConnection(), username, generationCount);
@@ -64,6 +82,7 @@ public class FillHandler implements HttpHandler {
 
         service.execute();
         System.out.println("Fill success");
+        filledUsernames.add(username);
         return service.getResult();
     }
 }
