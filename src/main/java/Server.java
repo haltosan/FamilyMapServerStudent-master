@@ -53,11 +53,17 @@ public class Server {
 		server.createContext("/user/login", new LoginHandler(db));
 		server.createContext("/clear", new ClearHandler(db));
 		server.createContext("/fill/", new FillHandler(db)); //[username]/{generations}
-		server.createContext("/load", new LoadHandler());
+		server.createContext("/load", new LoadHandler(db));
 		server.createContext("/person/", new PersonHandler(db)); //[personID]
 		server.createContext("/person", new AllPersonHandler(db));
 		server.createContext("/event/", new EventHandler(db)); //[eventID]
 		server.createContext("/event", new AllEventHandler(db));
+		server.createContext("/kill", new HttpHandler() {
+			@Override
+			public void handle(HttpExchange exchange) throws IOException {
+				System.exit(1);
+			}
+		});
 		server.createContext("/", new FileHandler());
 
 		/* Tells the HttpServer to start accepting incoming client connections.

@@ -17,7 +17,7 @@ import java.sql.Connection;
 public class LoginService extends Service {
 
     private final LoginRequest request;
-    private Connection connection;
+    private final Connection connection;
     private LoginResult result;
 
     /**
@@ -47,14 +47,14 @@ public class LoginService extends Service {
         }
         //look up auth token
         AuthTokenDAO authTokenDAO = new AuthTokenDAO(connection);
-        AuthToken authToken;
+        AuthToken authToken = new AuthToken("token" + Nonce.next(), request.username);
         try{
-            authToken = authTokenDAO.find(foundUser.getUsername());
+            authTokenDAO.insert(authToken);
         }
         catch (DataAccessException exception){
             exception.printStackTrace();
-            System.out.println("Issue with finding auth token");
-            result = new LoginResult("Error: Issue with finding auth token", false);
+            System.out.println("Issue with creating auth token");
+            result = new LoginResult("Error: Issue with creating auth token", false);
             return;
         }
         result = new LoginResult(authToken.getAuthtoken(), foundUser.getUsername(), foundUser.getPersonID(), true);
