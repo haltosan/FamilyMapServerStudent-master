@@ -69,6 +69,7 @@ public class RegisterHandler implements HttpHandler {
                 HandlerUtils.sendServerError(exchange, "Fill service faulted.");
                 return;
             }
+            HandlerUtils.filledUsernames.add(result.username);
         } catch (DataAccessException exception) {
             exception.printStackTrace();
             db.closeConnection(false);

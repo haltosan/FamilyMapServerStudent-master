@@ -15,10 +15,13 @@ import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 
 public class HandlerUtils {
 
     private static final Gson gson = new Gson();
+
+    public static ArrayList<String> filledUsernames = new ArrayList<>();
 
     public static void sendServerError(HttpExchange exchange, String message) throws IOException {
         String json = gson.toJson(new ClearResult("Error: " + message, false)); //clear result is used just because it doesn't have extra data members

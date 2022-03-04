@@ -1,12 +1,14 @@
 package Service;
 
 import DataAccess.*;
+import Handler.HandlerUtils;
 import Model.Event;
 import Request.ClearRequest;
 import Result.ClearResult;
 
 import java.net.HttpURLConnection;
 import java.sql.Connection;
+import java.util.ArrayList;
 
 /**
  * Clears the database
@@ -49,8 +51,9 @@ public class ClearService extends Service{
                 PersonDAO personDAO = new PersonDAO(connection);
                 personDAO.clear(username);
 
-                UserDAO userDAO = new UserDAO(connection);
-                userDAO.clear(username);
+//                UserDAO userDAO = new UserDAO(connection);
+//                userDAO.clear(username);
+                HandlerUtils.filledUsernames.clear();
             }
             else {
                 DataAccess[] tables = {new AuthTokenDAO(connection), new EventDAO(connection), new PersonDAO(connection),

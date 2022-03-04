@@ -56,6 +56,11 @@ public class FillService extends Service{
             return;
         }
 
+        if(user == null){
+            result = new FillResult("User not found", true);
+            return;
+        }
+
         Person userPerson = new Person(user.getPersonID(), username, user.getFirstName(), user.getLastName(), user.getGender(), null, null, null);
         int userBirthYear = 2000;
         try {
