@@ -4,7 +4,7 @@ import Model.Person;
 
 public class AllPersonResult extends Result{
 
-    Person[] data;
+    public Person[] data;
 
     /**
      * @param message Message
