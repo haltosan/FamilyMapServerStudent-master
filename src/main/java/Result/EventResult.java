@@ -2,9 +2,9 @@ package Result;
 
 public class EventResult extends Result{
 
-    String associatedUsername, eventID, personID, country, city, eventType;
-    double latitude, longitude;
-    int year;
+    public String associatedUsername, eventID, personID, country, city, eventType;
+    public double latitude, longitude;
+    public int year;
 
     /**
      * @param message Message

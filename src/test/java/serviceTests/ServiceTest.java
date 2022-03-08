@@ -17,6 +17,7 @@ public class ServiceTest {
     protected AllEventService allEventService;
     protected AllPersonService allPersonService;
     protected ClearService clearService;
+    protected EventService eventService;
     protected FillService fillService;
     protected LoadService loadService;
     protected LoginService loginService;
@@ -37,6 +38,7 @@ public class ServiceTest {
         allEventService = new AllEventService(db.getConnection(), username);
         allPersonService = new AllPersonService(db.getConnection(), username);
         clearService = new ClearService(null, db.getConnection());
+        eventService = new EventService(db.getConnection(), "event1", username);
         fillService = new FillService(db.getConnection(), username, 4);
         loadService = new LoadService(db.getConnection(), null, null, null);
         loginService = new LoginService(new LoginRequest(username, password), db.getConnection());

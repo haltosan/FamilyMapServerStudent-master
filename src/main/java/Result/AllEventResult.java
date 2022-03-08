@@ -4,7 +4,7 @@ import Model.Event;
 
 public class AllEventResult extends Result{
 
-    Event[] data;
+    public Event[] data;
 
     /**
      * @param message Message

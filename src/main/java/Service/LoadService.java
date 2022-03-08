@@ -39,6 +39,7 @@ public class LoadService extends Service{
             catch (DataAccessException exception){
                 exception.printStackTrace();
                 result = new LoadResult("Faulted on inserting user " + user.getPersonID(), false);
+                return;
             }
         }
 
@@ -49,6 +50,7 @@ public class LoadService extends Service{
             catch (DataAccessException exception){
                 exception.printStackTrace();
                 result = new LoadResult("Faulted on inserting person " + person.getPersonID(), false);
+                return;
             }
         }
 
@@ -59,6 +61,7 @@ public class LoadService extends Service{
             catch (DataAccessException exception){
                 exception.printStackTrace();
                 result = new LoadResult("Faulted on inserting event " + event.getEventID(), false);
+                return;
             }
         }
 
