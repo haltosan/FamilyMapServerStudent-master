@@ -51,7 +51,8 @@ public class LoginService extends Service {
         }
         //look up auth token
         AuthTokenDAO authTokenDAO = new AuthTokenDAO(connection);
-        AuthToken authToken = new AuthToken("token" + Nonce.next(), request.username);
+        int nonce = Nonce.getInstance().next();
+        AuthToken authToken = new AuthToken("token" + nonce, request.username);
         try{
             authTokenDAO.insert(authToken);
         }

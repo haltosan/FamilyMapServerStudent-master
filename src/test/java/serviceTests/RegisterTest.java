@@ -21,6 +21,7 @@ public class RegisterTest extends ServiceTest{
 
     @Test
     public void negative(){
+        assertDoesNotThrow(()->registerService = new RegisterService(new RegisterRequest("user", "passwd", "mail", "a", "b", "m"), db.getConnection()));
         registerService.execute();
         assertTrue(registerService.getResult().success);
         registerService.execute(); //re-register the same user

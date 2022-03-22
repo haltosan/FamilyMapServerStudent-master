@@ -102,7 +102,8 @@ public class FillService extends Service{
                 try {
                     makeBirth(parent.getPersonID(), bDay); //todo: add variation to dates?
                     //Mawage. Mawage is wot bwings us togeder tooday. Mawage, that bwessed awangment, that dweam wifin a dweam… And wuv, tru wuv, will fowow you foweva… So tweasure your wuv.
-                    eventDAO.insert(new Event("event" + Nonce.next(), username, parent.getPersonID(), marriageLatLong[0], marriageLatLong[1], marriageLocation[0], marriageLocation[1], "marriage", marriageDate));
+                    int nonce = Nonce.getInstance().next();
+                    eventDAO.insert(new Event("event" + nonce, username, parent.getPersonID(), marriageLatLong[0], marriageLatLong[1], marriageLocation[0], marriageLocation[1], "marriage", marriageDate));
                     makeDeath(parent.getPersonID(), bDay + 30);
                     eventCount += 3;
                     birthYear.add(bDay);
@@ -152,7 +153,8 @@ public class FillService extends Service{
         if(type == null){
             type = newType();
         }
-        eventDAO.insert(new Event("event" + Nonce.next(),username,personID,location[0],location[1],countryCity[0],countryCity[1],type,year));
+        int nonce = Nonce.getInstance().next();
+        eventDAO.insert(new Event("event" + nonce,username,personID,location[0],location[1],countryCity[0],countryCity[1],type,year));
     }
     private void makeBirth(String personID, int birthYear) throws DataAccessException {
         makeEvent(personID, birthYear, "birth");
@@ -176,7 +178,8 @@ public class FillService extends Service{
     }
 
     private Person newPerson(String gender){
-        return new Person("person" + Nonce.next(),username,newName(),newName(),gender,null,null,null);
+        int nonce = Nonce.getInstance().next();
+        return new Person("person" + nonce,username,newName(),newName(),gender,null,null,null);
     }
 }
 

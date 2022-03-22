@@ -33,7 +33,8 @@ public class RegisterService extends Service {
     @Override
     public void execute() {
         //add user to database
-        String personID = "person" + Nonce.next();
+        int nonce = Nonce.getInstance().next();
+        String personID = "person" + nonce;
         User user = new User(request.username, request.password, request.email, request.firstName, request.lastName, request.gender, personID);
         UserDAO userDAO = new UserDAO(connection);
 
@@ -52,7 +53,8 @@ public class RegisterService extends Service {
             return;
         }
         //add auth token
-        String authTokenString = "token" + Nonce.next();
+        nonce = Nonce.getInstance().next();
+        String authTokenString = "token" + nonce;
         AuthToken authToken = new AuthToken(authTokenString, request.username);
         try{
             authTokenDAO.insert(authToken);
