@@ -17,7 +17,7 @@ public class UserDAOTest {
     @BeforeEach
     public void setUp() throws DataAccessException{
         db = new Database();
-        testUser = new User("p1", "passwd", "p@mail.com", "Person", "one", "m", "p1");
+        testUser = new User("p1", "passwd", "p@mail.com", "Model.Person", "one", "m", "p1");
         testDAO = new UserDAO(db.getConnection());
         testDAO.clear();
     }
@@ -29,7 +29,7 @@ public class UserDAOTest {
 
     @Test
     public void insertPositive(){
-        User testUser2 = new User("p2", "p@$$w0rd", "p2@mail.co", "Person", "two", "f", "p2");
+        User testUser2 = new User("p2", "p@$$w0rd", "p2@mail.co", "Model.Person", "two", "f", "p2");
         try{
             testDAO.insert(testUser);
             testDAO.insert(testUser2);

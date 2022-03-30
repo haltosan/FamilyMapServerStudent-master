@@ -57,7 +57,7 @@ public class FillService extends Service{
         }
 
         if(user == null){
-            result = new FillResult("User not found", true);
+            result = new FillResult("Model.User not found", true);
             return;
         }
 
@@ -196,7 +196,7 @@ Death events must be the last event for a person chronologically.
 Nobody must die at an age older than 120 years old.
 Each person in a married couple has their own marriage event. Each event will have a unique event ID,
     but both marriage events must have matching years and locations.
-Event locations may be randomly selected, or you may try to make them more realistic
+Model.Event locations may be randomly selected, or you may try to make them more realistic
     (e.g., many people live their lives in a relatively small geographical area).
 
  */

@@ -98,7 +98,7 @@ public class ServerTest {
      * Register
      */
     @Test
-    @DisplayName("Register Valid New Model.User Test")
+    @DisplayName("Register Valid New Model.Model.Model.User Test")
     public void testValidNewRegister(TestInfo testInfo) {
         printTestName(testInfo);
         try {
@@ -113,7 +113,7 @@ public class ServerTest {
             //Checks to see if registerResult has a personID String
             assertNotNull(result.getPersonID(), "personID was null OR its variable name did not match that of the expected JSon (see API)");
             //Checks to see if you filled registerResult with a personID String
-            assertNotEquals(EMPTY_STRING, result.getPersonID(), "personID was empty string, expected non-empty string containing the personID of the user's generated Model.Person object");
+            assertNotEquals(EMPTY_STRING, result.getPersonID(), "personID was empty string, expected non-empty string containing the personID of the user's generated Model.Model.Model.Person object");
             //Checks to see if registerResult has a username String
             assertNotNull(result.getUsername(), "username was null OR its variable name did not match that of the expected JSon (see API)");
             //Checks to see if you filled registerResult with a username String
@@ -130,7 +130,7 @@ public class ServerTest {
      * Register
      */
     @Test
-    @DisplayName("Re-Register Model.User Test")
+    @DisplayName("Re-Register Model.Model.Model.User Test")
     public void testReRegister(TestInfo testInfo) {
         printTestName(testInfo);
         try {
@@ -163,7 +163,7 @@ public class ServerTest {
      * Login
      */
     @Test
-    @DisplayName("Login Valid Model.User Test")
+    @DisplayName("Login Valid Model.Model.Model.User Test")
     public void testValidUserLogin(TestInfo testInfo) {
         printTestName(testInfo);
         try {
@@ -180,7 +180,7 @@ public class ServerTest {
             //Checks to see if loginResult has a personID String
             assertNotNull(result.getPersonID(), "personID was null OR its variable name did not match that of the expected JSon (see API)");
             //Checks to see if you filled loginResult with a personID String
-            assertNotEquals(EMPTY_STRING, result.getPersonID(), "personID was empty string, expected non-empty string containing the personID of the user's generated Model.Person object");
+            assertNotEquals(EMPTY_STRING, result.getPersonID(), "personID was empty string, expected non-empty string containing the personID of the user's generated Model.Model.Model.Person object");
             //Checks to see if loginResult and registerResult have the same generated personID string
             assertEquals(registerResult.getPersonID(), result.getPersonID(), "personID does not match the personID that was returned from register");
             //Checks to see if loginResult has a username String
@@ -200,7 +200,7 @@ public class ServerTest {
      * Login
      */
     @Test
-    @DisplayName("Login Invalid Model.User Test")
+    @DisplayName("Login Invalid Model.Model.Model.User Test")
     public void testInvalidUserLogin(TestInfo testInfo) {
         printTestName(testInfo);
         try {
@@ -241,11 +241,11 @@ public class ServerTest {
     /**
      * Required API calls:
      * Register
-     * Model.Person/[personID]
+     * Model.Model.Model.Person/[personID]
      * (Partial) Fill
      */
     @Test
-    @DisplayName("Model.Person Valid Test")
+    @DisplayName("Model.Model.Model.Person Valid Test")
     public void testValidPerson(TestInfo testInfo) {
         printTestName(testInfo);
         try {
@@ -274,10 +274,10 @@ public class ServerTest {
      * Required API calls:
      * Load
      * Login
-     * Model.Person/[personID]
+     * Model.Model.Model.Person/[personID]
      */
     @Test
-    @DisplayName("Model.Person Wrong Model.User Test")
+    @DisplayName("Model.Model.Model.Person Wrong Model.Model.Model.User Test")
     public void testWrongUserPerson(TestInfo testInfo) {
         printTestName(testInfo);
         //We are calling the load api using the data in "/passoffFiles/LoadData.json" as the request
@@ -318,10 +318,10 @@ public class ServerTest {
     /**
      * Required API calls:
      * Register
-     * (Partial) Model.Person/[personID]
+     * (Partial) Model.Model.Model.Person/[personID]
      */
     @Test
-    @DisplayName("Model.Person Bad Auth Token Test")
+    @DisplayName("Model.Model.Model.Person Bad Auth Token Test")
     public void testBadAuthTokenPerson(TestInfo testInfo) {
         printTestName(testInfo);
         try {
@@ -346,7 +346,7 @@ public class ServerTest {
     /**
      * Required API calls:
      * Register
-     * (Partial) All Model.Person
+     * (Partial) All Model.Model.Model.Person
      * (Partial) Fill
      */
     @Test
@@ -361,7 +361,7 @@ public class ServerTest {
             //This is a valid api call, so the headers sent should be HTTP_OK (200)
             assertHTTP_OK();
             //Check to see that sheila's person information is in the list of people inside the personsResult
-            assertNotNull(personsResult.getPerson(registerResult.getPersonID()), "Model.User's person not found in passoffresult");
+            assertNotNull(personsResult.getPerson(registerResult.getPersonID()), "Model.Model.Model.User's person not found in passoffresult");
         } catch (ServerConnectionException e) {
             fail(e.getMessage());
         }
@@ -370,7 +370,7 @@ public class ServerTest {
     /**
      * Required API calls:
      * Register
-     * (Partial) All Model.Person
+     * (Partial) All Model.Model.Model.Person
      */
     @Test
     @DisplayName("Persons Bad Auth Token Test")
@@ -393,10 +393,10 @@ public class ServerTest {
      * Required API calls:
      * Load
      * Login
-     * Model.Event/[eventID]
+     * Model.Model.Model.Event/[eventID]
      */
     @Test
-    @DisplayName("Model.Event Valid Test")
+    @DisplayName("Model.Model.Model.Event Valid Test")
     public void testValidEvent(TestInfo testInfo) {
         printTestName(testInfo);
         //We are calling the load api using the data in "/passoffFiles/LoadData.json" as the request
@@ -412,18 +412,18 @@ public class ServerTest {
             EventResult eventResult = proxy.event(host, port, loginResult.getAuthtoken(), ASTEROIDS1_EVENT_ID);
             //This is a valid api call, so the headers sent should be HTTP_OK (200)
             assertHTTP_OK();
-            //Checks to make sure eventResult has information for an Model.Event [OR] in the case that there isn't, that there is no error message String
+            //Checks to make sure eventResult has information for an Model.Model.Model.Event [OR] in the case that there isn't, that there is no error message String
             Assertions.assertTrue(eventResult.getMessage() == null || !eventResult.getMessage().toLowerCase().contains("error"), "Result.Result contains an error message");
-            //Checks to make sure eventResult has the same information for the "Sheila_Asteroids" Model.Event as it is listed in loadRequest
-            assertEquals(loadRequest.getEvent(ASTEROIDS1_EVENT_ID), eventResult.toEvent(), "Model.Event returned does not match event from LoadRequest");
+            //Checks to make sure eventResult has the same information for the "Sheila_Asteroids" Model.Model.Model.Event as it is listed in loadRequest
+            assertEquals(loadRequest.getEvent(ASTEROIDS1_EVENT_ID), eventResult.toEvent(), "Model.Model.Model.Event returned does not match event from LoadRequest");
             //We are calling the get single event api with an eventID of "Other_Asteroids" (we are using the authtoken variable from the same loginResult)
             eventResult = proxy.event(host, port, loginResult.getAuthtoken(), ASTEROIDS2_EVENT_ID);
             //This is a valid api call, so the headers sent should be HTTP_OK (200)
             assertHTTP_OK();
-            //Checks to make sure eventResult has information for an Model.Event [OR] in the case that there isn't, that there is no error message String
+            //Checks to make sure eventResult has information for an Model.Model.Model.Event [OR] in the case that there isn't, that there is no error message String
             Assertions.assertTrue(eventResult.getMessage() == null || !eventResult.getMessage().toLowerCase().contains("error"), "Result.Result contains an error message");
-            //Checks to make sure eventResult has the same information for the "Other_Asteroids" Model.Event as it is listed in loadRequest
-            assertEquals(loadRequest.getEvent(ASTEROIDS2_EVENT_ID), eventResult.toEvent(), "Model.Event returned does not match event from LoadRequest");
+            //Checks to make sure eventResult has the same information for the "Other_Asteroids" Model.Model.Model.Event as it is listed in loadRequest
+            assertEquals(loadRequest.getEvent(ASTEROIDS2_EVENT_ID), eventResult.toEvent(), "Model.Model.Model.Event returned does not match event from LoadRequest");
         } catch (ServerConnectionException e) {
             fail(e.getMessage());
         } catch (FileNotFoundException e) {
@@ -434,10 +434,10 @@ public class ServerTest {
     /**
      * Required API calls:
      * Load
-     * (Partial) Model.Event/[eventID]
+     * (Partial) Model.Model.Model.Event/[eventID]
      */
     @Test
-    @DisplayName("Model.Event Bad Auth Token Test")
+    @DisplayName("Model.Model.Model.Event Bad Auth Token Test")
     public void testBadAuthTokenEvent(TestInfo testInfo) {
         printTestName(testInfo);
         //We are calling the load api using the data in "/passoffFiles/LoadData.json" as the request
@@ -463,10 +463,10 @@ public class ServerTest {
      * Required API calls:
      * Load
      * Login
-     * Model.Event/[eventID]
+     * Model.Model.Model.Event/[eventID]
      */
     @Test
-    @DisplayName("Model.Event Wrong Model.User Test")
+    @DisplayName("Model.Model.Model.Event Wrong Model.Model.Model.User Test")
     public void testWrongUserEvent(TestInfo testInfo) {
         printTestName(testInfo);
         //We are calling the load api using the data in "/passoffFiles/LoadData.json" as the request
@@ -488,7 +488,7 @@ public class ServerTest {
     /**
      * Required API calls:
      * Register
-     * (Partial) All Model.Event
+     * (Partial) All Model.Model.Model.Event
      * (Partial) Fill
      */
     @Test
@@ -503,7 +503,7 @@ public class ServerTest {
             //This is a valid api call, so the headers sent should be HTTP_OK (200)
             assertHTTP_OK();
             //Check to see that sheila has an event with the eventType "birth" in the list of events inside the eventsResult
-            assertNotNull(eventsResult.getEvent(registerResult.getPersonID(), BIRTH_EVENT), "Result.Result does not contain Model.User's birth");
+            assertNotNull(eventsResult.getEvent(registerResult.getPersonID(), BIRTH_EVENT), "Result.Result does not contain Model.Model.Model.User's birth");
         } catch (ServerConnectionException e) {
             fail(e.getMessage());
         }
@@ -534,7 +534,7 @@ public class ServerTest {
     /**
      * Required API calls:
      * Register
-     * All Model.Person
+     * All Model.Model.Model.Person
      * Fill
      */
     @Test
@@ -546,10 +546,10 @@ public class ServerTest {
             RegisterResult registerResult = proxy.register(host, port, registerRequest);
             //We are calling the get all persons api for the user sheila (we are using the authtoken variable from registerResult on the previous line)
             PersonsResult personsResult = proxy.persons(host, port, registerResult.getAuthtoken());
-            //Here we are getting the Model.Person information for the user sheila
+            //Here we are getting the Model.Model.Model.Person information for the user sheila
             Person userPerson = personsResult.getPerson(registerResult.getPersonID());
             //Checks to make sure the right amount of people were added to the database after the register service
-            checkPersonsParents(personsResult, userPerson, "Model.User", 3);
+            checkPersonsParents(personsResult, userPerson, "Model.Model.Model.User", 3);
         } catch (ServerConnectionException e) {
             fail(e.getMessage());
         }
@@ -558,8 +558,8 @@ public class ServerTest {
     /**
      * Required API calls:
      * Register
-     * All Model.Person
-     * All Model.Event
+     * All Model.Model.Model.Person
+     * All Model.Model.Model.Event
      * Fill
      */
     @Test
@@ -573,12 +573,12 @@ public class ServerTest {
             PersonsResult personsResult = proxy.persons(host, port, registerResult.getAuthtoken());
             //We are calling the get all events api for the user sheila (we are using the authtoken variable from the same registerResult)
             EventsResult eventsResult = proxy.events(host, port, registerResult.getAuthtoken());
-            //Here we are getting the Model.Person information for the user sheila
+            //Here we are getting the Model.Model.Model.Person information for the user sheila
             Person userPerson = personsResult.getPerson(registerResult.getPersonID());
-            //If person is null then a Model.Person Object was not created for the user and inserted into the database
-            assertNotNull(userPerson, "Model.User's Model.Person not included in passoffresult");
+            //If person is null then a Model.Model.Model.Person Object was not created for the user and inserted into the database
+            assertNotNull(userPerson, "Model.Model.Model.User's Model.Model.Model.Person not included in passoffresult");
             //Checks for all the required birth events and makes sure the years make sense
-            checkPersonsBirth(eventsResult, personsResult, userPerson, "Model.User", 3);
+            checkPersonsBirth(eventsResult, personsResult, userPerson, "Model.Model.Model.User", 3);
         } catch (ServerConnectionException e) {
             fail(e.getMessage());
         }
@@ -587,8 +587,8 @@ public class ServerTest {
     /**
      * Required API calls:
      * Register
-     * All Model.Person
-     * All Model.Event
+     * All Model.Model.Model.Person
+     * All Model.Model.Model.Event
      * Fill
      */
     @Test
@@ -602,22 +602,22 @@ public class ServerTest {
             PersonsResult personsResult = proxy.persons(host, port, registerResult.getAuthtoken());
             //We are calling the get all events api for the user sheila (we are using the authtoken variable from the same registerResult)
             EventsResult eventsResult = proxy.events(host, port, registerResult.getAuthtoken());
-            //Here we are getting the Model.Person information for the user sheila
+            //Here we are getting the Model.Model.Model.Person information for the user sheila
             Person userPerson = personsResult.getPerson(registerResult.getPersonID());
-            //If person1 is null then a Model.Person Object was not created for the user and inserted into the database
-            assertNotNull(userPerson, "Model.User's Model.Person not included in passoffresult");
-            //Here we are getting the Model.Person information for sheila's father
+            //If person1 is null then a Model.Model.Model.Person Object was not created for the user and inserted into the database
+            assertNotNull(userPerson, "Model.Model.Model.User's Model.Model.Model.Person not included in passoffresult");
+            //Here we are getting the Model.Model.Model.Person information for sheila's father
             Person userFather = personsResult.getPerson(userPerson.getFatherID());
-            //Here we are getting the Model.Person information for sheila's mother
+            //Here we are getting the Model.Model.Model.Person information for sheila's mother
             Person userMother = personsResult.getPerson(userPerson.getMotherID());
-            //If person2 is null then a Model.Person Object was not created for the user's father and inserted into the database
-            assertNotNull(userFather, "Model.User's Father's Model.Person not included in passoffresult");
-            //If person3 is null then a Model.Person Object was not created for the user's mother and inserted into the database
-            assertNotNull(userMother, "Model.User's Mother's Model.Person not included in passoffresult");
+            //If person2 is null then a Model.Model.Model.Person Object was not created for the user's father and inserted into the database
+            assertNotNull(userFather, "Model.Model.Model.User's Father's Model.Model.Model.Person not included in passoffresult");
+            //If person3 is null then a Model.Model.Model.Person Object was not created for the user's mother and inserted into the database
+            assertNotNull(userMother, "Model.Model.Model.User's Mother's Model.Model.Model.Person not included in passoffresult");
             //Checks for all the required death events for the user's mother's side and makes sure the years make sense
-            checkPersonsDeath(eventsResult, personsResult, userMother, "Model.User's mother", 3);
+            checkPersonsDeath(eventsResult, personsResult, userMother, "Model.Model.Model.User's mother", 3);
             //Checks for all the required death events for the user's father's side and makes sure the years make sense
-            checkPersonsDeath(eventsResult, personsResult, userFather, "Model.User's father", 3);
+            checkPersonsDeath(eventsResult, personsResult, userFather, "Model.Model.Model.User's father", 3);
         } catch (ServerConnectionException e) {
             fail(e.getMessage());
         }
@@ -626,8 +626,8 @@ public class ServerTest {
     /**
      * Required API calls:
      * Register
-     * All Model.Person
-     * All Model.Event
+     * All Model.Model.Model.Person
+     * All Model.Model.Model.Event
      * Fill
      */
     @Test
@@ -641,13 +641,13 @@ public class ServerTest {
             PersonsResult personsResult = proxy.persons(host, port, registerResult.getAuthtoken());
             //We are calling the get all events api for the user sheila (we are using the authtoken variable from the same registerResult)
             EventsResult eventsResult = proxy.events(host, port, registerResult.getAuthtoken());
-            //Here we are getting the Model.Person information for the user sheila
+            //Here we are getting the Model.Model.Model.Person information for the user sheila
             Person userPerson = personsResult.getPerson(registerResult.getPersonID());
-            //If person is null then a Model.Person Object was not created for the user and inserted into the database
-            assertNotNull(userPerson, "Model.User's Model.Person not included in passoffresult");
+            //If person is null then a Model.Model.Model.Person Object was not created for the user and inserted into the database
+            assertNotNull(userPerson, "Model.Model.Model.User's Model.Model.Model.Person not included in passoffresult");
             //Checks for all the required marriage events for all children's parents, ensures the years make sense,
             //and that the marriage is in the same location/year for each couple.
-            checkParentsMarriage(eventsResult, personsResult, userPerson, "Model.User", 2);
+            checkParentsMarriage(eventsResult, personsResult, userPerson, "Model.Model.Model.User", 2);
         } catch (ServerConnectionException e) {
             fail(e.getMessage());
         }
@@ -658,8 +658,8 @@ public class ServerTest {
      * Load
      * Fill
      * Login
-     * All Model.Person
-     * All Model.Event
+     * All Model.Model.Model.Person
+     * All Model.Model.Model.Event
      */
     @Test
     @DisplayName("Fill Does Not Affect Other Users Test")
@@ -872,8 +872,8 @@ public class ServerTest {
      * Required API calls:
      * Load
      * Login
-     * All Model.Event
-     * All Model.Person
+     * All Model.Model.Model.Event
+     * All Model.Model.Model.Person
      */
     @Test
     @DisplayName("Load Valid Info Test")
@@ -917,8 +917,8 @@ public class ServerTest {
      * Required API calls:
      * Load
      * Login
-     * All Model.Event
-     * All Model.Person
+     * All Model.Model.Model.Event
+     * All Model.Model.Model.Person
      */
     @Test
     @DisplayName("Persistence Test")
@@ -970,8 +970,8 @@ public class ServerTest {
      * Load
      * Login
      * Clear
-     * (Partial) All Model.Person
-     * (Partial) All Model.Event
+     * (Partial) All Model.Model.Model.Person
+     * (Partial) All Model.Model.Model.Event
      */
     @Test
     @DisplayName("Clear Test")
@@ -1133,10 +1133,10 @@ public class ServerTest {
 
     /**
      * First checks to make sure the test that called this function received an
-     * HTTP_BAD_REQUEST header. Then makes sure all the Model.Event List is
+     * HTTP_BAD_REQUEST header. Then makes sure all the Model.Model.Model.Event List is
      * empty. Ends by verifying that an error was reported.
      *
-     * @param eventsResult A EventsResult holding an empty Model.Event List and an error message
+     * @param eventsResult A EventsResult holding an empty Model.Model.Model.Event List and an error message
      */
     private void assertFailedEvents(EventsResult eventsResult) {
         assertHTTP_BAD_REQUEST();
@@ -1148,10 +1148,10 @@ public class ServerTest {
 
     /**
      * First checks to make sure the test that called this function received an
-     * HTTP_BAD_REQUEST header. Then makes sure all the Model.Person List is
+     * HTTP_BAD_REQUEST header. Then makes sure all the Model.Model.Model.Person List is
      * empty. Ends by verifying that an error was reported.
      *
-     * @param personsResult A PersonsResult holding an empty Model.Person List and an error message
+     * @param personsResult A PersonsResult holding an empty Model.Model.Model.Person List and an error message
      */
     private void assertFailedPersons(PersonsResult personsResult) {
         assertHTTP_BAD_REQUEST();
@@ -1197,10 +1197,10 @@ public class ServerTest {
 
     /**
      * First checks to make sure the test that called this function received an
-     * HTTP_BAD_REQUEST header. Then makes sure all the data for an Model.Event is
+     * HTTP_BAD_REQUEST header. Then makes sure all the data for an Model.Model.Model.Event is
      * empty. Ends by verifying that an error was reported.
      *
-     * @param eventResult An EventResult holding an empty Model.Event and an error message
+     * @param eventResult An EventResult holding an empty Model.Model.Model.Event and an error message
      */
     private void assertFailedEvent(EventResult eventResult) {
         assertHTTP_BAD_REQUEST();
@@ -1224,28 +1224,28 @@ public class ServerTest {
      *
      * @param eventsResult    List of Events
      * @param personsResult   List of People
-     * @param person          Model.Person we are looking at
-     * @param relationship    Relation to the Model.User
+     * @param person          Model.Model.Model.Person we are looking at
+     * @param relationship    Relation to the Model.Model.Model.User
      * @param generationsLeft Number of generations
      */
     private void checkParentsMarriage(EventsResult eventsResult, PersonsResult personsResult, Person person, String relationship, int generationsLeft) {
         Person personFather = personsResult.getPerson(person.getFatherID());
-        assertNotNull(personFather, relationship + "'s Father's Model.Person not included in passoffresult");
+        assertNotNull(personFather, relationship + "'s Father's Model.Model.Model.Person not included in passoffresult");
         Event fatherBirth = eventsResult.getEvent(personFather.getPersonID(), BIRTH_EVENT);
-        assertNotNull(fatherBirth, relationship + "'s Father's birth Model.Event not included in passoffresult");
+        assertNotNull(fatherBirth, relationship + "'s Father's birth Model.Model.Model.Event not included in passoffresult");
         int fatherBirthYear = fatherBirth.getYear();
         Event fatherMarriage = eventsResult.getEvent(personFather.getPersonID(), MARRIAGE_EVENT);
-        assertNotNull(fatherMarriage, relationship + "'s Father's marriage Model.Event not included in passoffresult");
+        assertNotNull(fatherMarriage, relationship + "'s Father's marriage Model.Model.Model.Event not included in passoffresult");
         int fatherMarriageYear = fatherMarriage.getYear();
         Assertions.assertTrue(fatherMarriageYear - fatherBirthYear >= MIN_REALISTIC_MARRIAGE_AGE, relationship + "'s father was married unrealistically young, min marriage age: " + MIN_REALISTIC_MARRIAGE_AGE);
 
         Person personMother = personsResult.getPerson(person.getMotherID());
-        assertNotNull(personMother, relationship + "'s Mother's Model.Person not included in passoffresult");
+        assertNotNull(personMother, relationship + "'s Mother's Model.Model.Model.Person not included in passoffresult");
         Event motherBirth = eventsResult.getEvent(personMother.getPersonID(), BIRTH_EVENT);
-        assertNotNull(motherBirth, relationship + "'s Mother's birth Model.Event not included in passoffresult");
+        assertNotNull(motherBirth, relationship + "'s Mother's birth Model.Model.Model.Event not included in passoffresult");
         int motherBirthYear = motherBirth.getYear();
         Event motherMarriage = eventsResult.getEvent(personMother.getPersonID(), MARRIAGE_EVENT);
-        assertNotNull(motherMarriage, relationship + "'s Mother's marriage Model.Event not included in passoffresult");
+        assertNotNull(motherMarriage, relationship + "'s Mother's marriage Model.Model.Model.Event not included in passoffresult");
         int motherMarriageYear = motherMarriage.getYear();
         Assertions.assertTrue(motherMarriageYear - motherBirthYear >= MIN_REALISTIC_MARRIAGE_AGE, relationship + "'s mother was married unrealistically young, min marriage age: " + MIN_REALISTIC_MARRIAGE_AGE);
 
@@ -1266,27 +1266,27 @@ public class ServerTest {
      *
      * @param eventsResult    List of Events
      * @param personsResult   List of People
-     * @param person          Model.Person we are looking at
-     * @param relationship    Relation to Model.User
+     * @param person          Model.Model.Model.Person we are looking at
+     * @param relationship    Relation to Model.Model.Model.User
      * @param generationsLeft Number of generations
      */
     private void checkPersonsBirth(EventsResult eventsResult, PersonsResult personsResult, Person person, String relationship, int generationsLeft) {
         Event personBirth = eventsResult.getEvent(person.getPersonID(), BIRTH_EVENT);
-        assertNotNull(personBirth, relationship + "'s birth Model.Event not included in passoffresult");
+        assertNotNull(personBirth, relationship + "'s birth Model.Model.Model.Event not included in passoffresult");
         int personBirthYear = personBirth.getYear();
 
         Person personFather = personsResult.getPerson(person.getFatherID());
-        assertNotNull(personFather, relationship + "'s Father's Model.Person not included in passoffresult");
+        assertNotNull(personFather, relationship + "'s Father's Model.Model.Model.Person not included in passoffresult");
         Event fatherBirth = eventsResult.getEvent(personFather.getPersonID(), BIRTH_EVENT);
-        assertNotNull(fatherBirth, relationship + "'s Father's birth Model.Event not included in passoffresult");
+        assertNotNull(fatherBirth, relationship + "'s Father's birth Model.Model.Model.Event not included in passoffresult");
         int fatherBirthYear = fatherBirth.getYear();
         int fatherAgeAtPersonBirth = personBirthYear - fatherBirthYear;
         Assertions.assertTrue(fatherAgeAtPersonBirth >= MIN_REALISTIC_PREGNANT_AGE, relationship + "'s father was unrealistically young at user's birth, min age of fatherhood: " + MIN_REALISTIC_PREGNANT_AGE);
 
         Person personMother = personsResult.getPerson(person.getMotherID());
-        assertNotNull(personMother, relationship + "'s Mother's Model.Person not included in passoffresult");
+        assertNotNull(personMother, relationship + "'s Mother's Model.Model.Model.Person not included in passoffresult");
         Event motherBirth = eventsResult.getEvent(personMother.getPersonID(), BIRTH_EVENT);
-        assertNotNull(motherBirth, relationship + "'s Mother's birth Model.Event not included in passoffresult");
+        assertNotNull(motherBirth, relationship + "'s Mother's birth Model.Model.Model.Event not included in passoffresult");
         int motherBirthYear = motherBirth.getYear();
         int motherAgeAtPersonBirth = personBirthYear - motherBirthYear;
         Assertions.assertTrue(motherAgeAtPersonBirth >= MIN_REALISTIC_PREGNANT_AGE, relationship + "'s mother was unrealistically young at user's birth, min pregnant age: " + MIN_REALISTIC_PREGNANT_AGE);
@@ -1305,16 +1305,16 @@ public class ServerTest {
      *
      * @param eventsResult    List of Events
      * @param personsResult   List of People
-     * @param person          Model.Person we are looking at
-     * @param relationship    Relation to Model.User
+     * @param person          Model.Model.Model.Person we are looking at
+     * @param relationship    Relation to Model.Model.Model.User
      * @param generationsLeft Number of generations
      */
     private void checkPersonsDeath(EventsResult eventsResult, PersonsResult personsResult, Person person, String relationship, int generationsLeft) {
         Event birth = eventsResult.getEvent(person.getPersonID(), BIRTH_EVENT);
-        assertNotNull(birth, relationship + "'s birth Model.Event not included in passoffresult");
+        assertNotNull(birth, relationship + "'s birth Model.Model.Model.Event not included in passoffresult");
         int birthYear = birth.getYear();
         Event death = eventsResult.getEvent(person.getPersonID(), DEATH_EVENT);
-        assertNotNull(death, relationship + "'s death Model.Event not included in passoffresult");
+        assertNotNull(death, relationship + "'s death Model.Model.Model.Event not included in passoffresult");
         int deathYear = death.getYear();
         int ageAtDeath = deathYear - birthYear;
         Assertions.assertTrue(ageAtDeath <= MAX_REALISTIC_DEATH_AGE, relationship + " was unrealistically old at his/her death, max death age: " + MAX_REALISTIC_DEATH_AGE);
@@ -1323,8 +1323,8 @@ public class ServerTest {
         Person personFather = personsResult.getPerson(person.getFatherID());
 
         if (generationsLeft > 0) {
-            assertNotNull(personMother, relationship + "'s Mother's Model.Person not included in passoffresult");
-            assertNotNull(personFather, relationship + "'s Father's Model.Person not included in passoffresult");
+            assertNotNull(personMother, relationship + "'s Mother's Model.Model.Model.Person not included in passoffresult");
+            assertNotNull(personFather, relationship + "'s Father's Model.Model.Model.Person not included in passoffresult");
             checkPersonsDeath(eventsResult, personsResult, personFather, relationship + "'s father", generationsLeft - 1);
             checkPersonsDeath(eventsResult, personsResult, personMother, relationship + "'s mother", generationsLeft - 1);
         }
@@ -1335,8 +1335,8 @@ public class ServerTest {
      * (This method is recursive, eventually looking at all the people in the family tree)
      *
      * @param personsResult   List of People
-     * @param person          Model.Person we are looking at
-     * @param relationship    Relation to Model.User
+     * @param person          Model.Model.Model.Person we are looking at
+     * @param relationship    Relation to Model.Model.Model.User
      * @param generationsLeft Number of generations
      */
     private void checkPersonsParents(PersonsResult personsResult, Person person, String relationship, int generationsLeft) {

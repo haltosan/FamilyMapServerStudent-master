@@ -47,7 +47,7 @@ public class PersonDAO extends DataAccess {
         }
         catch(SQLException exception){
             exception.printStackTrace();
-            throw new DataAccessException("Issue in find Person");
+            throw new DataAccessException("Issue in find Model.Person");
         }
     }
 
@@ -69,7 +69,7 @@ public class PersonDAO extends DataAccess {
         }
         catch(SQLException exception){
             exception.printStackTrace();
-            throw new DataAccessException("Issue in find Person");
+            throw new DataAccessException("Issue in find Model.Person");
         }
     }
 
@@ -89,7 +89,7 @@ public class PersonDAO extends DataAccess {
         }
         catch(SQLException exception){
             exception.printStackTrace();
-            throw new DataAccessException("Issue with Person insert");
+            throw new DataAccessException("Issue with Model.Person insert");
         }
     }
 }

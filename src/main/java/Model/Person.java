@@ -3,7 +3,7 @@ package Model;
 import java.util.Objects;
 
 /**
- * Person object that corresponds with the sql table of the same name
+ * Model.Person object that corresponds with the sql table of the same name
  */
 public class Person extends Model {
     private String personID;
@@ -17,13 +17,13 @@ public class Person extends Model {
 
     /**
      *
-     * @param personID Model.Person's GUID
-     * @param associatedUsername Model.Person's username
-     * @param firstName Model.Person's first name for display
-     * @param lastName Model.Person's last name for display
-     * @param fatherID Model.Person's father (can be null)
-     * @param motherID Model.Person's mother (can be null)
-     * @param spouseID Model.Person's spouse (can be null)
+     * @param personID Model.Model.Model.Person's GUID
+     * @param associatedUsername Model.Model.Model.Person's username
+     * @param firstName Model.Model.Model.Person's first name for display
+     * @param lastName Model.Model.Model.Person's last name for display
+     * @param fatherID Model.Model.Model.Person's father (can be null)
+     * @param motherID Model.Model.Model.Person's mother (can be null)
+     * @param spouseID Model.Model.Model.Person's spouse (can be null)
      */
     public Person(String personID, String associatedUsername, String firstName, String lastName, String gender, String fatherID, String motherID, String spouseID) {
         this.personID = personID;

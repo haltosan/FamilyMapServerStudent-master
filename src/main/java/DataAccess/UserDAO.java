@@ -71,7 +71,7 @@ public class UserDAO extends DataAccess {
     }
 
     public User find(String personID) throws DataAccessException{
-        String sql = "SELECT * FROM User WHERE personID = ?";
+        String sql = "SELECT * FROM " + tableName + " WHERE personID = ?";
         try(PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setString(1, personID);
             ResultSet resultSet = statement.executeQuery();
@@ -89,7 +89,7 @@ public class UserDAO extends DataAccess {
     }
 
     public User findFromUsername(String username) throws DataAccessException {
-        String sql = "SELECT * FROM User WHERE username = ?";
+        String sql = "SELECT * FROM " + tableName + " WHERE username = ?";
         try(PreparedStatement statement = connection.prepareStatement(sql)){
             statement.setString(1, username);
             ResultSet resultSet = statement.executeQuery();

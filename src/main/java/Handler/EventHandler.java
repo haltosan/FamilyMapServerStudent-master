@@ -76,6 +76,6 @@ public class EventHandler implements HttpHandler {
 
         String json = gson.toJson(result);
         HandlerUtils.sendSuccess(exchange, json);
-        System.out.println("Event success");
+        System.out.println("Model.Event success");
     }
 }

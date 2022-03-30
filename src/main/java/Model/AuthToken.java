@@ -5,7 +5,7 @@ import Model.Model;
 import java.util.Objects;
 
 /**
- * AuthToken object that corresponds with the sql table of the same name
+ * Model.AuthToken object that corresponds with the sql table of the same name
  */
 public class AuthToken extends Model {
     private final String authtoken;

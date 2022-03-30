@@ -43,7 +43,7 @@ public class FillTest extends ServiceTest{
         assertDoesNotThrow(() ->fillService = new FillService(db.getConnection(), "not user", 4));
         fillService.execute();
         String message = fillService.getResult().message;
-        assertEquals("User not found", message, message);
+        assertEquals("Model.User not found", message, message);
 
     }
 }

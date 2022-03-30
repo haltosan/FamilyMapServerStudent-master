@@ -3,7 +3,7 @@ package Model;
 import java.util.Objects;
 
 /**
- * Event object that corresponds with the sql table of the same name
+ * Model.Event object that corresponds with the sql table of the same name
  */
 public class Event extends Model {
     private final String eventID;
@@ -18,11 +18,11 @@ public class Event extends Model {
 
     /**
      *
-     * @param eventID Model.Event's GUID
+     * @param eventID Model.Model.Model.Event's GUID
      * @param associatedUsername Username of person in event
-     * @param personID Model.Person's GUID
-     * @param latitude Model.Event's latitude
-     * @param longitude Model.Event's longitude
+     * @param personID Model.Model.Model.Person's GUID
+     * @param latitude Model.Model.Model.Event's latitude
+     * @param longitude Model.Model.Model.Event's longitude
      * @param country Country from longitude and latitude
      * @param city City from above location
      * @param eventType Type of event (birth, death, etc.)

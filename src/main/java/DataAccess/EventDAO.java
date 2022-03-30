@@ -48,7 +48,7 @@ public class EventDAO extends DataAccess {
         }
         catch (SQLException exception){
             exception.printStackTrace();
-            throw new DataAccessException("Issue with Event insert");
+            throw new DataAccessException("Issue with Model.Event insert");
         }
     }
 
@@ -68,7 +68,7 @@ public class EventDAO extends DataAccess {
             }
         } catch(SQLException exception){
             exception.printStackTrace();
-            throw new DataAccessException("Issue in find Event");
+            throw new DataAccessException("Issue in find Model.Event");
         }
     }
 
@@ -91,7 +91,7 @@ public class EventDAO extends DataAccess {
         }
         catch(SQLException exception){
             exception.printStackTrace();
-            throw new DataAccessException("Issue in find Event");
+            throw new DataAccessException("Issue in find Model.Event");
         }
     }
 

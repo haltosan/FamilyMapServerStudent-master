@@ -91,6 +91,7 @@ public class CreateDB {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+        //createNewDatabase("familymap.sqlite");
         createNewTable();
     }
 }

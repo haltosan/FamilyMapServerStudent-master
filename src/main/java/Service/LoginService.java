@@ -46,7 +46,7 @@ public class LoginService extends Service {
             return;
         }
         if(foundUser == null){
-            result = new LoginResult("Error: User not found.", false);
+            result = new LoginResult("Error: Model.User not found.", false);
             return;
         }
         //look up auth token

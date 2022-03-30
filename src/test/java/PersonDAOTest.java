@@ -18,7 +18,7 @@ public class PersonDAOTest {
     @BeforeEach
     public void setup() throws DataAccessException{
         db = new Database();
-        testPerson = new Person("p1", "p1", "Person", "one", "m", "f1", "m1", "p2");
+        testPerson = new Person("p1", "p1", "Model.Person", "one", "m", "f1", "m1", "p2");
         testDAO = new PersonDAO(db.getConnection());
         testDAO.clear();
     }
@@ -30,8 +30,8 @@ public class PersonDAOTest {
 
     @Test
     public void insertPositive(){
-        Person testPerson2 = new Person("p2", "p2", "Person", "two", "f", "f2", "m2", "p1");
-        Person testPerson3 = new Person("p3", "p3", "Person", "three", "m", "f2", "m2", null);
+        Person testPerson2 = new Person("p2", "p2", "Model.Person", "two", "f", "f2", "m2", "p1");
+        Person testPerson3 = new Person("p3", "p3", "Model.Person", "three", "m", "f2", "m2", null);
         try{
             testDAO.insert(testPerson);
             testDAO.insert(testPerson2);
@@ -57,7 +57,7 @@ public class PersonDAOTest {
     public void findPositive(){
         try{
             testDAO.insert(testPerson);
-            Person testPerson2 = new Person("p2", "p2", "Person", "two", "f", "f2", "m2", "p1");
+            Person testPerson2 = new Person("p2", "p2", "Model.Person", "two", "f", "f2", "m2", "p1");
             testDAO.insert(testPerson2);
             assertEquals(testPerson, testDAO.find(testPerson.getPersonID()));
             assertEquals(testPerson2, testDAO.find(testPerson2.getPersonID()));

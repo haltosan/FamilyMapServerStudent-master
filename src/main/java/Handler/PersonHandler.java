@@ -55,8 +55,8 @@ public class PersonHandler implements HttpHandler {
         service.execute();
         PersonResult result = service.getResult();
         if(result == null){
-            System.out.println("Person not found");
-            HandlerUtils.sendSuccess(exchange, "Person not found.");
+            System.out.println("Model.Person not found");
+            HandlerUtils.sendSuccess(exchange, "Model.Person not found.");
             db.closeConnection(false);
             return;
         }
@@ -70,7 +70,7 @@ public class PersonHandler implements HttpHandler {
 
         String json = gson.toJson(result);
         HandlerUtils.sendSuccess(exchange, json);
-        System.out.println("Person success");
+        System.out.println("Model.Person success");
         db.closeConnection(true);
     }
 
