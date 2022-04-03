@@ -36,7 +36,6 @@ public class FillService extends Service{
 
     private String[] names = {"billy", "bob", "joe", "fred"};
     private String[] eventType = {"cake day party alone", "jail"};
-    private double[][] locations = {{1,1},{2,2},{100, -100}};
     private String[] country = {"us", "us", "ireland", "ireland"};
     private String[] city = {"new york", "la", "on the street", "random pub"};
     private String[] genders = {"m","f"};
@@ -57,7 +56,7 @@ public class FillService extends Service{
         }
 
         if(user == null){
-            result = new FillResult("Model.User not found", true);
+            result = new FillResult("User not found", true);
             return;
         }
 
@@ -170,7 +169,9 @@ public class FillService extends Service{
         return eventType[random.nextInt(eventType.length)];
     }
     private double[] newLongLat(){
-        return locations[random.nextInt(locations.length)];
+        double lat = (random.nextDouble() * 180) - 90;
+        double lon = (random.nextDouble() * 360) - 180;
+        return new double[]{lat, lon};
     }
     private String[] newCountryCity(){
         int index = random.nextInt(country.length);
